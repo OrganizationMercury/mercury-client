@@ -13,11 +13,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Change working directory
-        run: cd ClientApp
-
-      - run: dir 
         
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
@@ -25,10 +20,14 @@ jobs:
           node-version: 12.x
 
       - name: Restore project
-        run: npm ci
+        run: |
+          cd ClientApp
+          npm ci
 
       - name: Build project
-        run: npm run build
+        run: |
+          cd ClientApp
+          npm run build
 
   publish-image:
     needs: build
