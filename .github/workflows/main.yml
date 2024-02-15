@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Change working directory
-        run: cd app
+        run: cd ClientApp/app
         
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
