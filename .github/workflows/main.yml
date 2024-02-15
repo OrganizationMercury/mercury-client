@@ -16,6 +16,8 @@ jobs:
 
       - name: Change working directory
         run: cd ClientApp
+
+      - run: dir 
         
       - name: Use Node.js 12.x
         uses: actions/setup-node@v1
