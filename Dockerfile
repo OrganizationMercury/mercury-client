@@ -1,8 +1,8 @@
 FROM node:20 AS build
 WORKDIR /app
-COPY package*.json ./
+COPY ClientApp/package*.json ./
 RUN npm install
-COPY . .
+COPY ClientApp/ ./
 RUN ng build --prod
 
 FROM nginx:alpine AS runtime
