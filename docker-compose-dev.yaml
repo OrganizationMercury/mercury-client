@@ -1,0 +1,16 @@
+services:
+  client:
+    build: .
+    ports:
+      - "4200:4200"
+
+  api:
+    image: ghcr.io/organizationmercury/mercury-api:develop
+    ports:
+      - "5088:5088"
+  
+  neo4j:
+    image: neo4j:latest
+    ports:
+      - "7474:7474"
+      - "7687:7687"
