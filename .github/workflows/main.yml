@@ -6,6 +6,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
   
 jobs:
   build:
@@ -49,9 +50,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.github_token }}
 
+      - name: extract docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+
       - name: Build and Push to registry
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          tags: ghcr.io/organizationmercury/mercury-client${{ github.ref_name == 'develop' && '-dev' || '' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
