@@ -3,7 +3,7 @@ WORKDIR /app
 COPY ClientApp/package*.json ./
 RUN npm install
 COPY ClientApp/ ./
-RUN npm run build
+RUN npm run build-prod
 
 FROM nginx:alpine AS runtime
 COPY --from=build /app/dist/* /usr/share/nginx/html/
