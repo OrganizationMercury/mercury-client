@@ -1,1 +1,16 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+	background-color: white;
+	height: 100%;
+	margin: 0;
+}
+
+html {
+	height: 100%;
+}
+
+.round-button {
+	border: none;
+    border-radius: 20px;
+	height: 40px;
+	width: 40px;
+}
