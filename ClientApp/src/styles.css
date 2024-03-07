@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+	background-color: white;
+	height: 100%;
+	margin: 0;
+}
+
+html {
+	height: 100%;
+}
+
+@keyframes fadeOut {
+	from { opacity: 1; }
+	to { opacity: 0; }
+}
+  
+.fade-out {
+	animation-name: fadeOut;
+	animation-duration: 500ms;
+	animation-fill-mode: forwards;
+}
