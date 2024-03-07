@@ -1,10 +1,13 @@
-<div class="sidebar-header">
-    <!--must be component-->
-    <button class="round-button"></button>
+<div id="sidebar-header">
+    <app-round-button 
+    [src]="'../../assets/menu.svg'"
+    (click)="openMenu($event)"></app-round-button>
+    <ng-container #menuContainer></ng-container>
+    <app-search-bar></app-search-bar>
 </div>
-<div class="collections">
-    <!--collections of friends, users, chats and other-->>
-</div>
-<div class="chat-list">
+<div id="collections">
     
+</div>
+<div id="chat-list">
+    <!--В след раз надо сделать то же, что и в telegram contacts-->
 </div>
