@@ -1,5 +1,5 @@
 :host {
-	background-color: gray;
+	background-color: rgb(80, 80, 80);
 	display: grid;
 	grid-template-areas: "header header"
         "collections chats";
@@ -8,17 +8,19 @@
 	height: 100%;
 	width: 100%;
 }
-.sidebar-header {
+#sidebar-header {
 	align-items: center;
 	display: flex;
+	position: relative;
+	gap: 10px;
 	grid-area: header;
-    margin: 0 10px;
+	margin: 0 10px;
 }
-.collections {
+#collections {
 	background-color: red;
 	grid-area: collections;
 }
-.chat-list {
+#chat-list {
 	background-color: blue;
 	grid-area: chats;
 }
