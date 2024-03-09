@@ -13,7 +13,7 @@
     flex-direction: column;
 }
 
-:host > * {
+:host > div {
 	display: flex;
 	gap: 20px;
 	border-radius: 20px;
@@ -25,7 +25,7 @@
 	
 }
 
-:host > *:hover {
+:host > div:hover {
 	background-color: rgba(0, 0, 0, .5);
 	cursor: pointer;
 }
