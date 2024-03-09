@@ -12,6 +12,15 @@
     display: flex;
   }
 
+  #collections {
+    background-color: red;
+    grid-area: collections;
+  }
+  #chat-list {
+    background-color: blue;
+    grid-area: chats;
+  }
+
   .sidebar {
     width: 350px;
   }
