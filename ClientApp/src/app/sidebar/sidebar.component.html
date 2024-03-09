@@ -2,12 +2,7 @@
     <app-round-button 
     [src]="'../../assets/menu.svg'"
     (click)="openMenu($event)"></app-round-button>
-    <ng-container #menuContainer></ng-container>
+    <ng-container #mainMenu></ng-container>
     <app-search-bar></app-search-bar>
 </div>
-<div id="collections">
-    
-</div>
-<div id="chat-list">
-    <!--В след раз надо сделать то же, что и в telegram contacts-->
-</div>
+<ng-content></ng-content>
