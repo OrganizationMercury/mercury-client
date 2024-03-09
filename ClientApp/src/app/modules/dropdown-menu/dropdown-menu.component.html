@@ -1,4 +1,4 @@
 <div *ngFor="let item of menuItems">
-    <img [src]="item.image">
+    <img [src]="item.image" (click)="item.onClick()">
     {{item.text}}
 </div>
