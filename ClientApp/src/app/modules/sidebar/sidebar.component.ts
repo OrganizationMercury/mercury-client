@@ -12,14 +12,16 @@ import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component'
 })
 export class SidebarComponent {
   @ViewChild('mainMenu', { read: ViewContainerRef }) mainMenu!: ViewContainerRef;
+  @Input() selectedSidebar!: ViewContainerRef;
   @Input() containerClass!: string;
   @HostBinding('class') get hostClasses() {
     return this.containerClass;
   }
-  menuItems: {image:string, text:string}[] = [
-    {image:'../../assets/friends.svg', text:' Friends '},
-    {image:'../../assets/settings.svg', text:' Settings '}]
-
+  settingsClick = () => {
+    let sidebar = this.selectedSidebar.createComponent(SidebarComponent);
+    sidebar.instance.containerClass = 'secondary-container';
+  }
+  friendsClick = () => {}
   openMenu = (event: MouseEvent) => {
     if(this.mainMenu.length === 0){
       let menu = this.mainMenu.createComponent(DropdownMenuComponent);
@@ -28,4 +30,7 @@ export class SidebarComponent {
       event.stopPropagation();
     }
   }
+  menuItems: {image:string, text:string, onClick:VoidFunction}[] = [
+    {image:'../../assets/friends.svg', text:' Friends ', onClick: this.friendsClick},
+    {image:'../../assets/settings.svg', text:' Settings ', onClick: this.settingsClick}]
 }
