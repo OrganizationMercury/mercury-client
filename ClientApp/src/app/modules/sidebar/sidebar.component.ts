@@ -22,14 +22,7 @@ export class SidebarComponent {
     sidebar.instance.containerClass = 'secondary-container';
   }
   friendsClick = () => {}
-  openMenu = (event: MouseEvent) => {
-    if(this.mainMenu.length === 0){
-      let menu = this.mainMenu.createComponent(DropdownMenuComponent);
-      menu.instance.mainMenu = this.mainMenu;
-      menu.instance.menuItems = this.menuItems;
-      event.stopPropagation();
-    }
-  }
+  
   menuItems: {image:string, text:string, onClick:VoidFunction}[] = [
     {image:'../../assets/friends.svg', text:' Friends ', onClick: this.friendsClick},
     {image:'../../assets/settings.svg', text:' Settings ', onClick: this.settingsClick}]
