@@ -13,7 +13,7 @@
     flex-direction: column;
 }
 
-.menu-item {
+:host > div {
 	display: flex;
 	gap: 20px;
 	border-radius: 20px;
@@ -22,8 +22,10 @@
 	align-items: center;
 	color: rgb(240, 240, 240);
 	font-size: 20px;
+	
 }
 
-.menu-item:hover {
+:host > div:hover {
 	background-color: rgba(0, 0, 0, .5);
+	cursor: pointer;
 }

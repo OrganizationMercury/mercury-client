@@ -1,7 +1,19 @@
 
 <div class="sidebar">
-  <app-sidebar></app-sidebar>
+  <app-sidebar 
+    [containerClass]="'main-container'"
+    [selectedSidebar]="sidebarContainer">
+    <div id="collections">
+    
+    </div>
+    <div id="chat-list">
+        <!--В след раз надо сделать то же, что и в telegram contacts-->
+    </div>
+  </app-sidebar>
 </div>
+<ng-container #selectedSidebar></ng-container>
+<!--Понять как получить доступ к этой хуйне для генерации сайдбара
+    И предусмотреть, чтобы сайдбар покрывал уже существующий-->
 <div class="chat">
   <app-chat></app-chat>
 </div>
