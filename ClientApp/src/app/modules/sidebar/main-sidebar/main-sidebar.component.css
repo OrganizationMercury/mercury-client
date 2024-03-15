@@ -2,9 +2,6 @@
 	background-color: rgb(80, 80, 80);
 	height: 100%;
 	width: 100%;
-}
-
-:host(.main-container) {
 	display: grid;
 	grid-template-areas: "header header"
         "collections chats";
@@ -20,11 +17,12 @@
 	grid-template-rows: 56px auto;
 }
 
-#sidebar-header {
-	align-items: center;
-	display: flex;
-	position: relative;
-	gap: 10px;
-	grid-area: header;
-	margin: 0 10px;
+#collections {
+    background-color: red;
+    grid-area: collections;
+  }
+#chat-list {
+    background-color: blue;
+    grid-area: chats;
 }
+
