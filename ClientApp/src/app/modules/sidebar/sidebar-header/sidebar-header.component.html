@@ -1,0 +1,5 @@
+<app-round-button [buttonIcon]="buttonIcon" (click)="onClick($event)"></app-round-button>
+<ng-container #mainMenu></ng-container>
+<ng-content select="[left-side]" style="display: flex;"></ng-content>
+<ng-content select="[right-side]" style="display: flex; flex-direction: row-reverse;"></ng-content>
+<app-search-bar *ngIf="hasSearchbar"></app-search-bar>
