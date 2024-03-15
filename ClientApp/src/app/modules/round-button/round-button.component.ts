@@ -1,5 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { ButtonService } from '../../services/ButtonService';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-round-button',
@@ -8,16 +7,6 @@ import { ButtonService } from '../../services/ButtonService';
   templateUrl: './round-button.component.html',
   styleUrl: './round-button.component.css'
 })
-export class RoundButtonComponent implements OnInit{
-  buttonIcon!: string;
-
-  constructor(private buttonService: ButtonService) {}
-
-
-  ngOnInit(): void {
-    this.buttonService.src$.subscribe(src => this.buttonIcon = src);
-    this.buttonService.click$.subscribe(click => this.onClick = click);
-  }
-
-  @HostListener('click', ['$event']) onClick!: (event: MouseEvent) => void;
+export class RoundButtonComponent{
+  @Input() buttonIcon!: string;
 }

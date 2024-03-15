@@ -10,7 +10,7 @@ import { Component, ElementRef, HostListener, Input, Renderer2, ViewContainerRef
 })
 export class DropdownMenuComponent {
   @Input() mainMenu! : ViewContainerRef;
-  @Input() menuItems! : {image:string, text:string, onClick:VoidFunction}[];
+  @Input() menuItems! : {image:string, text:string, onClick:(event: MouseEvent) => void}[];
 
   constructor(private el: ElementRef, private renderer: Renderer2) { }
 
