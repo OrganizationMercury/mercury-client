@@ -1,0 +1,60 @@
+:host {
+	background-color: rgb(80, 80, 80);
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-areas: "header header"
+        "main main";
+	grid-template-columns: 60px auto;
+	grid-template-rows: 56px auto;
+}
+
+.image-input {
+	height: 350px; 
+	overflow: hidden;
+}
+
+#profile-form > button{
+	margin: 0 10px;
+}
+
+.field-input {
+	margin: 0 10px;
+}
+
+.image-input:hover {
+	cursor: pointer;
+}
+
+.image-field {
+	height: 350px; 
+	position: relative; 
+	overflow: hidden;
+}
+
+img {
+	width: 100%; 
+	height: 100%;
+}
+
+.image-field > div {
+	position: absolute; 
+	font-size: 28px; 
+	color: white; 
+	bottom: 30px; 
+	left: 30px;
+}
+
+.info-field {
+	height: 50px; 
+	margin: 0 10px;
+	background-color: rgb(80, 80, 80);
+	border-radius: 20px; 
+	display: flex;
+	align-content: center;
+}
+
+.info-field:hover {
+	background-color: lightgray;
+	cursor: pointer;
+}

@@ -1,0 +1,44 @@
+<app-sidebar-header #header [buttonIcon]="headerButtonIcon" [hasSearchbar]="false" [onClick]="toMainSidebar">
+    <div left-side style="width: 180px;">
+        <p style="font-size: 24px; font-weight: bold;">Settings</p>
+    </div>
+    <app-round-button right-side [buttonIcon]="'assets/edit.svg'" (click)="isFormOpen = !isFormOpen"></app-round-button>
+    <app-round-button right-side [buttonIcon]="'assets/log-out.svg'"></app-round-button>
+</app-sidebar-header>
+<div style="grid-area: main; display: flex; flex-direction: column; gap: 10px;">
+    <form id="profile-form" action="post" *ngIf="isFormOpen; else elseBlock" style="display: flex; flex-direction: column; gap: 10px;">
+        <div class="image-input">
+            <img src="https://th.bing.com/th/id/OIP.xvJQ0Mv4jhIPh2k0pAboAAHaEK?w=303&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7">
+        </div>
+        <div class="field-input">
+            <input name="first-name" type="text">
+            <label for="first-name">First name(required)</label>
+        </div>
+        <div class="field-input">
+            <input name="last-name" type="text">
+            <label for="lastn-name">Last name(optional)</label>
+        </div>
+        <div class="field-input">
+            <input name="bio" type="text">
+            <label for="bio">Bio</label>
+        </div>
+        <div class="field-input">
+            <input name="username" type="text">
+            <label for="username">Username</label>
+        </div>
+        <button>
+            submit
+        </button>
+    </form>
+    <ng-template #elseBlock class="field-container">
+        <div class="image-field">
+            <img src="https://th.bing.com/th/id/OIP.xvJQ0Mv4jhIPh2k0pAboAAHaEK?w=303&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7">
+            <div>
+                Max Download
+            </div>
+        </div>
+        <div class="info-field">
+            <p>Username: maxaytt</p>
+        </div>
+    </ng-template>
+</div>
