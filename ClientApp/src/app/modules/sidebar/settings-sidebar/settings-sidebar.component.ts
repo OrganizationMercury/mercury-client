@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
+
 @Component({
   selector: 'app-settings-sidebar',
   templateUrl: './settings-sidebar.component.html',
@@ -10,7 +11,7 @@ export class SettingsSidebarComponent {
   headerButtonIcon = 'assets/arrow-left.svg';
   isFormOpen = false;
 
-  toMainSidebar = (event: MouseEvent) => {
+  toMainSidebar = () => {
     this.sidebarModeEvent.emit('main');
   }
 }
