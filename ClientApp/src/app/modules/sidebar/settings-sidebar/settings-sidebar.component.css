@@ -16,16 +16,6 @@
 	gap: 10px;
 }
 
-#profile-form {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-
-#profile-form > button{
-	margin: 0 10px;
-}
-
 .image-field {
 	height: 350px; 
 	position: relative; 
