@@ -9,11 +9,6 @@
 	grid-template-rows: 56px auto;
 }
 
-.image-input {
-	height: 350px; 
-	overflow: hidden;
-}
-
 .main-content {
 	grid-area: main; 
 	display: flex; 
@@ -29,14 +24,6 @@
 
 #profile-form > button{
 	margin: 0 10px;
-}
-
-.field-input {
-	margin: 0 10px;
-}
-
-.image-input:hover {
-	cursor: pointer;
 }
 
 .image-field {

@@ -1,0 +1,13 @@
+.image-input {
+	height: 350px; 
+	overflow: hidden;
+}
+
+.image-input:hover {
+	cursor: pointer;
+}
+
+.field-input {
+	margin: 0 10px;
+}
+
