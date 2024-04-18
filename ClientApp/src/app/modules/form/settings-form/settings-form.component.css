@@ -1,6 +1,21 @@
-.image-input {
+#profile-form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+#profile-form > button{
+	margin: 0 10px;
+}
+
+.image-input{
 	height: 350px; 
 	overflow: hidden;
+}
+
+.image-input img {
+	height: 100%;
+	width: 100%;
 }
 
 .image-input:hover {
