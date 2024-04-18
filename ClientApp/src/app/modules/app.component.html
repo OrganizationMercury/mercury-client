@@ -1,4 +1,3 @@
-
 <div [ngSwitch]="sidebarMode"  class="sidebar">
   <app-main-sidebar *ngSwitchCase="'main'" (sidebarModeEvent)="handleModeEvent($event)"></app-main-sidebar>
   <app-settings-sidebar *ngSwitchCase="'settings'" (sidebarModeEvent)="handleModeEvent($event)"></app-settings-sidebar>
