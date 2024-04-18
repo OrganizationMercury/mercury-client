@@ -1,0 +1,24 @@
+<form id="profile-form" [formGroup]="applyForm" (submit)="onFormSubmit()" action="post">
+    <div class="image-input">
+        <img #image (click)="fileInput.click()" src="https://th.bing.com/th/id/OIP.xvJQ0Mv4jhIPh2k0pAboAAHaEK?w=303&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7">
+        <input #fileInput type="file" style="display: none" 
+            accept=".jpg,.jpeg" (change)="updateImageSrc($event, image)"/>
+    </div>
+    <div class="field-input">
+        <label for="Firstname">First name(required)</label>
+        <input name="Firstname" type="text" formControlName="FirstName">
+    </div>
+    <div class="field-input">
+        <label for="Lastname">Last name(optional)</label>
+        <input name="Lastname" type="text" formControlName="LastName">
+    </div>
+    <div class="field-input">
+        <label for="Bio">Bio</label>
+        <textarea name="Bio" formControlName="Bio"></textarea>
+    </div>
+    <div class="field-input">
+        <label for="Username">Username</label>
+        <input name="Username" type="text" formControlName="Username">
+    </div>
+    <button class="primary" type="submit">submit</button>
+</form>
