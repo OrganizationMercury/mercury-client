@@ -7,16 +7,23 @@
 </app-sidebar-header>
 
 <div class="main-content">
-    <app-settings-form *ngIf="isFormOpen; else elseBlock"></app-settings-form>
+    <app-settings-form 
+        *ngIf="isFormOpen; else elseBlock"
+        [userData]="userData"
+        [userAvatarUrl]="userAvatarUrl">
+    </app-settings-form>
     <ng-template #elseBlock class="field-container">
-        <div class="image-field">
-            <img src="https://th.bing.com/th/id/OIP.xvJQ0Mv4jhIPh2k0pAboAAHaEK?w=303&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7">
+        <div class="image-field" *ngIf="userAvatarUrl">
+            <img [src]="userAvatarUrl">
             <div>
-                Max Download
+                {{userData?.firstname}} {{userData?.lastname}}
             </div>
         </div>
         <div class="info-field">
-            <p>Username: maxaytt</p>
+            <p>Bio: {{userData?.bio}}</p>
+        </div>
+        <div class="info-field">
+            <p>Username: {{userData?.username}}</p>
         </div>
     </ng-template>
 </div>
