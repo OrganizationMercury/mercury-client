@@ -6,3 +6,19 @@ export interface UpdateUserDto {
     bio?: string | null;
     file?: any | null;
   }
+
+export interface UserDto {
+  id: string
+  firstname: string
+  lastname: string
+  username: string
+  bio: string | null
+  avatar: object
+  avatarFilename: string | null
+}
+
+export interface AvatarDto {
+  userId: string
+  filename: string
+  bucket: string
+}
