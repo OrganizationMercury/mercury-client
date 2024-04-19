@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { UpdateUserDto } from '../../../dto/user.dto';
+import { Component, Input } from '@angular/core';
+import { UpdateUserDto, UserDto } from '../../../dto/user.dto';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
 
@@ -9,13 +9,15 @@ import { UserService } from '../../../services/user.service';
   styleUrl: './settings-form.component.css'
 })
 export class SettingsFormComponent {
+  @Input() userData?: UserDto;
+  @Input() userAvatarUrl?: string;
   constructor(private userService: UserService) { }
 
   applyForm = new FormGroup({
-    FirstName: new FormControl(''),
-    LastName: new FormControl(''),
-    Bio: new FormControl(''),
-    Username: new FormControl(''),
+    Firstname: new FormControl(this.userData?.firstname),
+    Lastname: new FormControl(this.userData?.lastname),
+    Bio: new FormControl(this.userData?.bio),
+    Username: new FormControl(this.userData?.username),
     File: new FormControl()
   });
 
@@ -36,13 +38,12 @@ export class SettingsFormComponent {
   onFormSubmit = () => {
     let updateUserDto: UpdateUserDto = {
       id: "8e82ad0d-5e7d-46a8-a254-c7d7ccd7dcfa",
-      firstname: this.applyForm.value.FirstName,
-      lastname: this.applyForm.value.LastName,
+      firstname: this.applyForm.value.Firstname,
+      lastname: this.applyForm.value.Lastname,
       username: this.applyForm.value.Username,
       bio: this.applyForm.value.Bio,
       file: this.applyForm.value.File 
     };
-    console.log(updateUserDto);
     this.userService.updateUser(updateUserDto).subscribe(response => {
       console.log(response);
     });
