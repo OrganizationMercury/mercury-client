@@ -5,40 +5,41 @@
     <app-round-button right-side [buttonIcon]="'assets/edit.svg'" (click)="isFormOpen = !isFormOpen"></app-round-button>
     <app-round-button right-side [buttonIcon]="'assets/log-out.svg'"></app-round-button>
 </app-sidebar-header>
-<div style="grid-area: main; display: flex; flex-direction: column; gap: 10px;">
-    <form id="profile-form" action="post" *ngIf="isFormOpen; else elseBlock" style="display: flex; flex-direction: column; gap: 10px;">
-        <div class="image-input">
-            <img src="https://th.bing.com/th/id/OIP.xvJQ0Mv4jhIPh2k0pAboAAHaEK?w=303&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7">
-        </div>
-        <div class="field-input">
-            <input name="first-name" type="text">
-            <label for="first-name">First name(required)</label>
-        </div>
-        <div class="field-input">
-            <input name="last-name" type="text">
-            <label for="lastn-name">Last name(optional)</label>
-        </div>
-        <div class="field-input">
-            <input name="bio" type="text">
-            <label for="bio">Bio</label>
-        </div>
-        <div class="field-input">
-            <input name="username" type="text">
-            <label for="username">Username</label>
-        </div>
-        <button>
-            submit
-        </button>
-    </form>
+
+<div class="main-content">
+    <app-settings-form 
+        *ngIf="isFormOpen; else elseBlock"
+        [userData]="userData"
+        [userAvatarUrl]="userAvatarUrl">
+    </app-settings-form>
     <ng-template #elseBlock class="field-container">
-        <div class="image-field">
-            <img src="https://th.bing.com/th/id/OIP.xvJQ0Mv4jhIPh2k0pAboAAHaEK?w=303&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7">
+        <div class="image-field" *ngIf="userAvatarUrl">
+            <img [src]="userAvatarUrl" alt="user avatar">
             <div>
-                Max Download
+                {{userData?.firstname}} {{userData?.lastname}}
             </div>
         </div>
         <div class="info-field">
-            <p>Username: maxaytt</p>
+            <p>Bio: {{userData?.bio}}</p>
+        </div>
+        <div class="info-field">
+            <p>Username: {{userData?.username}}</p>
+        </div>
+        <div class="interests-field">
+            <div class="interests-container">
+                <div class="interest-item" *ngFor="let interest of userInterests">
+                    <p>{{interest.name}}</p>
+                    <button (click)="unlinkInterest(interest.name)">
+                        <img src="assets/cross.svg">
+                    </button>
+                </div>
+            </div>
+            <form class="input-area" [formGroup]="applyForm" (submit)="onFormSubmit()" method="post">
+                <input name="Name" type="text" formControlName="Name" placeholder="Enter interest">
+                <button type="submit">
+                    <img src="assets/plus.svg">
+                </button>
+            </form>
         </div>
     </ng-template>
 </div>
