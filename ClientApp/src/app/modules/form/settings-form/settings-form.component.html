@@ -1,4 +1,4 @@
-<form id="profile-form" [formGroup]="applyForm" (submit)="onFormSubmit()" action="post">
+<form id="profile-form" [formGroup]="applyForm" (submit)="onFormSubmit()" method="post">
     <div class="image-input">
         <img #image (click)="fileInput.click()" [src]="userAvatarUrl">
         <input #fileInput type="file" style="display: none" 
