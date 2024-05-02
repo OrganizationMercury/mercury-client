@@ -22,3 +22,7 @@ export interface AvatarDto {
   filename: string
   bucket: string
 }
+
+export interface InterestDto {
+  name: string;
+}
