@@ -14,7 +14,7 @@
     </app-settings-form>
     <ng-template #elseBlock class="field-container">
         <div class="image-field" *ngIf="userAvatarUrl">
-            <img [src]="userAvatarUrl">
+            <img [src]="userAvatarUrl" alt="user avatar">
             <div>
                 {{userData?.firstname}} {{userData?.lastname}}
             </div>
@@ -24,6 +24,22 @@
         </div>
         <div class="info-field">
             <p>Username: {{userData?.username}}</p>
+        </div>
+        <div class="interests-field">
+            <div class="interests-container">
+                <div class="interest-item" *ngFor="let interest of userInterests">
+                    <p>{{interest.name}}</p>
+                    <button (click)="unlinkInterest(interest.name)">
+                        <img src="assets/cross.svg">
+                    </button>
+                </div>
+            </div>
+            <form class="input-area" [formGroup]="applyForm" (submit)="onFormSubmit()" method="post">
+                <input name="Name" type="text" formControlName="Name" placeholder="Enter interest">
+                <button type="submit">
+                    <img src="assets/plus.svg">
+                </button>
+            </form>
         </div>
     </ng-template>
 </div>
