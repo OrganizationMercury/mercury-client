@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UpdateUserDto } from '../dto/user.dto';
+import { InterestDto, UpdateUserDto } from '../dto/user.dto';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
@@ -21,7 +21,6 @@ export class UserService {
     data.append('username', dto.username!);
     data.append('bio', dto.bio!);
     data.append('file', dto.file!);
-    console.log(data);
     return this.http.put('http://localhost:8080/Users', data);
   };
 
@@ -33,5 +32,17 @@ export class UserService {
 
   getUserById() {
     return this.http.get(`http://localhost:8080/Users/${this.userId}`);
+  }
+
+  getUserInterests() {
+    return this.http.get(`http://localhost:8080/Users/${this.userId}/Interests`);
+  }
+
+  linkUserInterest(interest: InterestDto) {
+    return this.http.post(`http://localhost:8080/Users/${this.userId}/Interests`, interest);
+  }
+
+  unlinkUserInterest(interest: InterestDto) {
+    return this.http.delete(`http://localhost:8080/Users/${this.userId}/Interests?name=${interest.name}`);
   }
 }
