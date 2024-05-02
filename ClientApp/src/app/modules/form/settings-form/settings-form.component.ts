@@ -24,7 +24,6 @@ export class SettingsFormComponent {
   updateImageSrc(inputEvent: Event, image: any) {
     const input = inputEvent.target as HTMLInputElement;
     const file = input.files![0];
-    console.log(file);
     this.applyForm.controls.File.setValue(file);
 
     const reader = new FileReader();
@@ -36,16 +35,21 @@ export class SettingsFormComponent {
   }
 
   onFormSubmit = () => {
+    const { Firstname, Lastname, Username, Bio, File } = this.applyForm.value;
     let updateUserDto: UpdateUserDto = {
       id: "8e82ad0d-5e7d-46a8-a254-c7d7ccd7dcfa",
-      firstname: this.applyForm.value.Firstname,
-      lastname: this.applyForm.value.Lastname,
-      username: this.applyForm.value.Username,
-      bio: this.applyForm.value.Bio,
-      file: this.applyForm.value.File 
+      firstname: Firstname,
+      lastname: Lastname,
+      username: Username,
+      bio: Bio,
+      file: File 
     };
-    this.userService.updateUser(updateUserDto).subscribe(response => {
-      console.log(response);
+    this.userService.updateUser(updateUserDto).subscribe(
+      response => {
+        console.log(response);
+      },
+      error => {
+        console.error('Error:', error);
     });
   }
 }
