@@ -13,7 +13,8 @@
 	grid-area: main; 
 	display: flex; 
 	flex-direction: column;
-	gap: 10px;
+	margin: 0 5px;
+	gap: 5px;
 }
 
 .image-field {
@@ -37,7 +38,6 @@ img {
 
 .info-field {
 	height: 50px; 
-	margin: 0 10px;
 	background-color: rgb(80, 80, 80);
 	border-radius: 20px; 
 	display: flex;
@@ -47,4 +47,69 @@ img {
 .info-field:hover {
 	background-color: lightgray;
 	cursor: pointer;
+}
+
+.interests-field {
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	gap: 3px;
+}
+
+.interests-container {
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+	border-radius: 10px;
+	gap: 3px;
+}
+
+.interest-item {
+	display: flex;
+	align-items: center;
+	background-color: gray;
+	border-radius: 10px;
+	gap: 5px;
+}
+
+.interest-item > p {
+	padding-left: 5px;
+	margin: 0;
+}
+
+.interest-item > button {
+	width: 30px;
+	height: 30px;
+	border-radius: 10px;
+	background-color: transparent;
+	border: none;
+}
+
+.interest-item > button:hover {
+	background-color: lightgray;
+}
+
+.input-area {
+	display: flex;
+	gap: 5px;
+}
+
+.input-area > input {
+	flex-grow: 1;
+	background-color: transparent;
+	border-radius: 10px;
+	border: 1px  gray solid;
+	padding: 0 5px;
+}
+
+.input-area > button {
+	width: 30px;
+	height: 30px;
+	border-radius: 10px;
+	background-color: gray;
+	border: none;
+}
+
+.input-area > button:hover {
+	background-color: lightgray;
 }
