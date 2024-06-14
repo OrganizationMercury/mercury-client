@@ -1,6 +1,7 @@
 import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
 import { DropdownMenuComponent } from '../../dropdown-menu/dropdown-menu.component';
 import { SidebarHeaderComponent } from '../sidebar-header/sidebar-header.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-sidebar',
@@ -13,7 +14,7 @@ export class MainSidebarComponent {
   menuItems: {image:string, text:string, onClick: (event: MouseEvent) => void}[];
   headerButtonIcon = 'assets/menu.svg';
 
-  constructor() {
+  constructor(private router: Router) {
     this.menuItems = [
       {image:'assets/friends.svg', text:' Friends ', onClick: this.friendsClick},
       {image:'assets/settings.svg', text:' Settings ', onClick: this.settingsClick}];
@@ -27,10 +28,10 @@ export class MainSidebarComponent {
     event.stopPropagation();
   }
 
-  settingsClick = (event: MouseEvent) => {
-    this.sidebarModeEvent.emit('settings');
+  settingsClick = () => {
+    this.router.navigateByUrl('home/settings');
   }
-  friendsClick = (event: MouseEvent) => {
-    this.sidebarModeEvent.emit('friends');
+  friendsClick = () => {
+    this.router.navigateByUrl('home/friends');
   }
 }

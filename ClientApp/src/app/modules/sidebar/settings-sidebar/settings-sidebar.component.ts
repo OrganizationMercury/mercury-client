@@ -2,6 +2,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { UserDto, InterestDto } from '../../../dto/user.dto';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class SettingsSidebarComponent {
   headerButtonIcon = 'assets/arrow-left.svg';
   isFormOpen = false;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     userService.getUserAvatar().subscribe(response => {
       this.userAvatarUrl = response;
     });
@@ -35,7 +36,7 @@ export class SettingsSidebarComponent {
   });
 
   toMainSidebar = () => {
-    this.sidebarModeEvent.emit('main');
+    this.router.navigateByUrl('home');
   }
 
   onFormSubmit = () => {
@@ -64,5 +65,8 @@ export class SettingsSidebarComponent {
       error => {
         console.error('Error:', error);
     });;
+  }
+  logout() {
+    this.router.navigateByUrl('login');
   }
 }

@@ -3,7 +3,7 @@
         <p style="font-size: 24px; font-weight: bold;">Settings</p>
     </div>
     <app-round-button right-side [buttonIcon]="'assets/edit.svg'" (click)="isFormOpen = !isFormOpen"></app-round-button>
-    <app-round-button right-side [buttonIcon]="'assets/log-out.svg'"></app-round-button>
+    <app-round-button right-side [buttonIcon]="'assets/log-out.svg'" (click)="logout()"></app-round-button>
 </app-sidebar-header>
 
 <div class="main-content">

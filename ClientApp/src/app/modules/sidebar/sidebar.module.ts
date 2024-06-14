@@ -10,6 +10,7 @@ import { FriendsSidebarComponent } from './friends-sidebar/friends-sidebar.compo
 import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component';
 import { SettingsFormComponent } from '../form/settings-form/settings-form.component';
 import { FormModule } from '../form/form.module';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { FormModule } from '../form/form.module';
     RoundButtonComponent,
     SearchBarComponent,
     DropdownMenuComponent,
-    FormModule
+    FormModule,
+    RouterModule
   ],
   exports: [
     MainSidebarComponent,
