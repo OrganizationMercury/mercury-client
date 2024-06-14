@@ -8,7 +8,6 @@ import { MainSidebarComponent } from './main-sidebar/main-sidebar.component';
 import { SettingsSidebarComponent } from './settings-sidebar/settings-sidebar.component';
 import { FriendsSidebarComponent } from './friends-sidebar/friends-sidebar.component';
 import { DropdownMenuComponent } from '../dropdown-menu/dropdown-menu.component';
-import { SettingsFormComponent } from '../form/settings-form/settings-form.component';
 import { FormModule } from '../form/form.module';
 import { RouterModule } from '@angular/router';
 
