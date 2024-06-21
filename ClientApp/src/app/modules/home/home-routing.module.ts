@@ -1,9 +1,9 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { MainComponent } from "./Pages/main/main.component";
-import { MainSidebarComponent } from "../sidebar/main-sidebar/main-sidebar.component";
-import { SettingsSidebarComponent } from "../sidebar/settings-sidebar/settings-sidebar.component";
-import { FriendsSidebarComponent } from "../sidebar/friends-sidebar/friends-sidebar.component";
+import { MainSidebarComponent } from "./Pages/main-sidebar/main-sidebar.component";
+import { SettingsSidebarComponent } from "./Pages/settings-sidebar/settings-sidebar.component";
+import { FriendsSidebarComponent } from "./Pages/friends-sidebar/friends-sidebar.component";
 
 const routes: Routes = [
   {

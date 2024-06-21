@@ -3,8 +3,6 @@ import { Component, ElementRef, HostListener, Input, Renderer2, ViewContainerRef
 
 @Component({
   selector: 'app-dropdown-menu',
-  standalone: true,
-  imports: [ CommonModule ],
   templateUrl: './dropdown-menu.component.html',
   styleUrl: './dropdown-menu.component.css'
 })

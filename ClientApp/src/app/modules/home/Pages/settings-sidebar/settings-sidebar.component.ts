@@ -1,7 +1,7 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Output, EventEmitter } from '@angular/core';
-import { UserService } from '../../../services/user.service';
-import { UserDto, InterestDto } from '../../../dto/user.dto';
+import { UserService } from '../../../../services/user.service';
+import { UserDto, InterestDto } from '../../../../dto/user.dto';
 import { Router } from '@angular/router';
 
 

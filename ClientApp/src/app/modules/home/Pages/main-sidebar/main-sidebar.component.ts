@@ -1,6 +1,6 @@
 import { Component, ViewChild, Output, EventEmitter } from '@angular/core';
-import { DropdownMenuComponent } from '../../dropdown-menu/dropdown-menu.component';
-import { SidebarHeaderComponent } from '../sidebar-header/sidebar-header.component';
+import { DropdownMenuComponent } from '../../Components/dropdown-menu/dropdown-menu.component';
+import { SidebarHeaderComponent } from '../../Components/sidebar-header/sidebar-header.component';
 import { Router } from '@angular/router';
 
 @Component({
