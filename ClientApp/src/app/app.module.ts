@@ -7,22 +7,30 @@ import { TokenService } from "./services/token.service";
 import { UserService } from "./services/user.service";
 import { RouterModule } from "@angular/router";
 import { BrowserModule } from "@angular/platform-browser";
+import { ReactiveFormsModule } from "@angular/forms";
+import { LoginComponent } from "./Pages/login/login.component";
+import { RegisterComponent } from "./Pages/register/register.component";
+import { AuthService } from "./services/auth.service";
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        LoginComponent,
+        RegisterComponent
     ],
     imports: [
         BrowserModule,
         CommonModule,
         AppRoutingModule,
         RouterModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule
     ],
     providers: [
         HttpClient,
         UserService,
-        TokenService
+        TokenService,
+        AuthService
     ],
     bootstrap: [AppComponent]
 })
