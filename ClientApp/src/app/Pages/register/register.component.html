@@ -1,1 +1,56 @@
-<p>register works!</p>
+<form id="login-form" [formGroup]="registerForm" (submit)="onFormSubmit()" method="post">
+    <div class="field-input">
+        <label for="FirstName">Firstname</label>
+        <input name="FirstName" type="text" formControlName="FirstName">
+        <div *ngIf="firstname.invalid && (firstname.dirty || firstname.touched)"
+                class="alert alert-danger">
+            <div *ngIf="firstname.hasError('required')">
+                Firstname is required.
+            </div>
+        </div>
+    </div>
+    <div class="field-input">
+        <label for="LastName">Lastname</label>
+        <input name="LastName" type="text" formControlName="LastName">
+    </div>
+    <div class="field-input">
+        <label for="UserName">Username</label>
+        <input name="UserName" type="text" formControlName="UserName">
+        <div *ngIf="username.invalid && (username.dirty || username.touched)"
+                class="alert alert-danger">
+            <div *ngIf="username.hasError('required')">
+                Username is required.
+            </div>
+            <div *ngIf="username.hasError('minlength')">
+                Username must be at least 3 characters long.
+            </div>
+        </div>
+    </div>
+    <div class="field-input">
+        <label for="Password">Password</label>
+        <input name="Password" type="password" formControlName="Password">
+        <div *ngIf="password.invalid && (password.dirty || password.touched)"
+              class="alert alert-danger">
+            <div *ngIf="password.hasError('required')">
+                Password is required.
+            </div>
+            <div *ngIf="password.hasError('minlength')">
+                Password must be at least 8 characters long.
+            </div>
+            <div *ngIf="password.hasError('noUppercase')">
+                Password must have at least one upper case letter.
+            </div>
+            <div *ngIf="password.hasError('noLowercase')">
+                Password must have at least one lower case letter.
+            </div>
+            <div *ngIf="password.hasError('noNumber')">
+                Password must have at least one number.
+            </div>
+            <div *ngIf="password.hasError('noSpecialSymbol')">
+                Password must have at least one special symbol.
+            </div>
+        </div>
+    </div>
+    <button class="primary" type="submit">Login</button> <br/>
+    <a [routerLink]="['/login']" routerLinkActive="active-link" >Already have account?</a>
+</form>

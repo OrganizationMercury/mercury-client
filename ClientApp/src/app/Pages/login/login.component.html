@@ -1,3 +1,12 @@
-<p>login works!</p>
-<button (click)="login()">Login</button> <br/>
-<a [routerLink]="['/register']" routerLinkActive="active-link" >Don't have account?</a>
+<form id="login-form" [formGroup]="loginForm" (submit)="onFormSubmit()" method="post">
+    <div class="field-input">
+        <label for="UserName">Username</label>
+        <input name="UserName" type="text" formControlName="UserName">
+    </div>
+    <div class="field-input">
+        <label for="Password">Password</label>
+        <input name="Password" type="password" formControlName="Password">
+    </div>
+    <button class="primary" type="submit">Login</button> <br/>
+    <a [routerLink]="['/register']" routerLinkActive="active-link" >Don't have account?</a>
+</form>
