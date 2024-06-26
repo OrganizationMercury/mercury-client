@@ -24,13 +24,6 @@ export class LoginComponent {
       Password: this.loginForm.controls.Password.value
     };
     //TODO: incorrect username/password добавить
-    this.authService.login(loginDto).pipe(
-      tap(() => this.router.navigateByUrl('home')),
-      catchError(error => {
-        console.error('Ошибка логина:', error);
-        return [];
-      })
-    )
-    .subscribe();
+    this.authService.login(loginDto).subscribe();
   }
 }
