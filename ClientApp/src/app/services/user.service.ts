@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { InterestDto, UpdateUserDto } from '../dto/user.dto';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { TokenService } from './token.service';
 
 
 @Injectable({
@@ -10,12 +11,12 @@ import { Observable } from 'rxjs';
 })
 
 export class UserService {
-  constructor(private http: HttpClient) { }
-  private userId = "8e82ad0d-5e7d-46a8-a254-c7d7ccd7dcfa";
+  constructor(private http: HttpClient, private tokenService: TokenService) { }
+  private userId = this.tokenService.decodedToken.jti;
 
   updateUser(dto: UpdateUserDto) {
     let data = new FormData();
-    data.append('id', dto.id);
+    data.append('id', this.userId!);
     data.append('firstname', dto.firstname!);
     data.append('lastname', dto.lastname!);
     data.append('username', dto.username!);
@@ -25,12 +26,20 @@ export class UserService {
   };
 
   getUserAvatar() : Observable<string> {
+    console.log('token:',this.tokenService.token);
+    console.log('decoded token:',this.tokenService.decodedToken);
+    console.log('decoded token subj:',this.tokenService.decodedToken.sub);
+    console.log('decoded token subj:',this.tokenService.decodedToken.jti);
     return this.http.get(`http://localhost:8080/Avatars/GetByUserId?userId=${this.userId}`, {responseType: 'blob'}).pipe(
       map(blob => URL.createObjectURL(blob))
     );
   }
 
   getUserById() {
+    return this.http.get(`http://localhost:8080/Users/${this.userId}`);
+  }
+
+  getUserByUsername() {
     return this.http.get(`http://localhost:8080/Users/${this.userId}`);
   }
 
