@@ -16,14 +16,14 @@
         <div class="image-field" *ngIf="userAvatarUrl">
             <img [src]="userAvatarUrl" alt="user avatar">
             <div>
-                {{userData?.firstname}} {{userData?.lastname}}
+                {{userData?.firstName}} {{userData?.lastName}}
             </div>
         </div>
         <div class="info-field">
             <p>Bio: {{userData?.bio}}</p>
         </div>
         <div class="info-field">
-            <p>Username: {{userData?.username}}</p>
+            <p>Username: {{userData?.userName}}</p>
         </div>
         <div class="interests-field">
             <div class="interests-container">
