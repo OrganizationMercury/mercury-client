@@ -44,8 +44,8 @@ export class RegisterComponent {
 
     this.authService.register(registerDto).subscribe(
       response => {
-        console.log('Успешная регистрация:', response);
-        this.router.navigateByUrl('home');
+        console.log('Успешная регистрация');
+        this.router.navigateByUrl('login');
       },
       error => {
         console.error('Ошибка регистрации:', error);
