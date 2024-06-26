@@ -26,10 +26,7 @@ export class UserService {
   };
 
   getUserAvatar() : Observable<string> {
-    console.log('token:',this.tokenService.token);
     console.log('decoded token:',this.tokenService.decodedToken);
-    console.log('decoded token subj:',this.tokenService.decodedToken.sub);
-    console.log('decoded token subj:',this.tokenService.decodedToken.jti);
     return this.http.get(`http://localhost:8080/Avatars/GetByUserId?userId=${this.userId}`, {responseType: 'blob'}).pipe(
       map(blob => URL.createObjectURL(blob))
     );
