@@ -22,9 +22,12 @@ export class SettingsSidebarComponent {
   constructor(private userService: UserService, private router: Router) {
     userService.getUserAvatar().subscribe(response => {
       this.userAvatarUrl = response;
+    }, _ => {
+      this.userAvatarUrl = 'assets/default-avatar.svg';
     });
     userService.getUserById().subscribe(response => {
       this.userData = response as UserDto;
+      console.log('user data', this.userData);
     });
     userService.getUserInterests().subscribe(response => {
       this.userInterests = response as InterestDto[];
