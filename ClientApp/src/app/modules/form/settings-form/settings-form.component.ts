@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { UpdateUserDto, UserDto } from '../../../dto/user.dto';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings-form',
@@ -11,13 +12,15 @@ import { UserService } from '../../../services/user.service';
 export class SettingsFormComponent {
   @Input() userData?: UserDto;
   @Input() userAvatarUrl?: string;
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) {
+    console.log(this.userData);
+   }
 
   applyForm = new FormGroup({
-    Firstname: new FormControl(this.userData?.firstname),
-    Lastname: new FormControl(this.userData?.lastname),
+    Firstname: new FormControl(this.userData?.firstName),
+    Lastname: new FormControl(this.userData?.lastName),
     Bio: new FormControl(this.userData?.bio),
-    Username: new FormControl(this.userData?.username),
+    Username: new FormControl(this.userData?.userName),
     File: new FormControl()
   });
 
@@ -37,7 +40,6 @@ export class SettingsFormComponent {
   onFormSubmit = () => {
     const { Firstname, Lastname, Username, Bio, File } = this.applyForm.value;
     let updateUserDto: UpdateUserDto = {
-      id: "8e82ad0d-5e7d-46a8-a254-c7d7ccd7dcfa",
       firstname: Firstname,
       lastname: Lastname,
       username: Username,
@@ -47,6 +49,7 @@ export class SettingsFormComponent {
     this.userService.updateUser(updateUserDto).subscribe(
       response => {
         console.log(response);
+        this.router.navigateByUrl('home/settings');
       },
       error => {
         console.error('Error:', error);
