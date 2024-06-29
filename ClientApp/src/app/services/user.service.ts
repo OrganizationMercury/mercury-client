@@ -33,6 +33,7 @@ export class UserService {
   }
 
   getUserById() {
+    console.log(this.userId);
     return this.http.get(`http://localhost:8080/Users/${this.userId}`);
   }
 
