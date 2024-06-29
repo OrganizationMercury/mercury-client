@@ -29,7 +29,7 @@ export class MainSidebarComponent {
   }
 
   settingsClick = () => {
-    this.router.navigateByUrl('home/settings');
+    this.router.navigateByUrl('home/account/info');
   }
   friendsClick = () => {
     this.router.navigateByUrl('home/friends');

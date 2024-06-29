@@ -1,25 +1,27 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Output, EventEmitter } from '@angular/core';
-import { UserService } from '../../../../services/user.service';
-import { UserDto, InterestDto } from '../../../../dto/user.dto';
+import { UserService } from '../../../../../services/user.service';
+import { UserDto, InterestDto } from '../../../../../dto/user.dto';
 import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-settings-sidebar',
-  templateUrl: './settings-sidebar.component.html',
-  styleUrl: './settings-sidebar.component.css'
+  selector: 'app-account-info-sidebar',
+  templateUrl: './account-info-sidebar.component.html',
+  styleUrl: './account-info-sidebar.component.css'
 })
-export class SettingsSidebarComponent {
+export class AccountInfoSidebarComponent {
   @Output() sidebarModeEvent = new EventEmitter<string>();
 
   userData? : UserDto;
   userAvatarUrl?: string; 
   userInterests?: InterestDto[];
-  headerButtonIcon = 'assets/arrow-left.svg';
   isFormOpen = false;
 
   constructor(private userService: UserService, private router: Router) {
+    userService.getUserInterests().subscribe(response => {
+      this.userInterests = response as InterestDto[];
+    });
     userService.getUserAvatar().subscribe(response => {
       this.userAvatarUrl = response;
     }, _ => {
@@ -29,18 +31,12 @@ export class SettingsSidebarComponent {
       this.userData = response as UserDto;
       console.log('user data', this.userData);
     });
-    userService.getUserInterests().subscribe(response => {
-      this.userInterests = response as InterestDto[];
-    });
+    console.log(this.userData);
   }
 
   applyForm = new FormGroup({
     Name: new FormControl(''),
   });
-
-  toMainSidebar = () => {
-    this.router.navigateByUrl('home');
-  }
 
   onFormSubmit = () => {
     const { Name } = this.applyForm.value;
@@ -68,8 +64,5 @@ export class SettingsSidebarComponent {
       error => {
         console.error('Error:', error);
     });;
-  }
-  logout() {
-    this.router.navigateByUrl('login');
   }
 }

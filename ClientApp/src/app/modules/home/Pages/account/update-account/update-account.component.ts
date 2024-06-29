@@ -1,20 +1,28 @@
 import { Component, Input } from '@angular/core';
-import { UpdateUserDto, UserDto } from '../../../dto/user.dto';
+import { UpdateUserDto, UserDto } from '../../../../../dto/user.dto';
 import { FormGroup, FormControl } from '@angular/forms';
-import { UserService } from '../../../services/user.service';
+import { UserService } from '../../../../../services/user.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-settings-form',
-  templateUrl: './settings-form.component.html',
-  styleUrl: './settings-form.component.css'
+  selector: 'update-account',
+  templateUrl: './update-account.component.html',
+  styleUrl: './update-account.component.css'
 })
-export class SettingsFormComponent {
+export class UpdateAccountComponent {
   @Input() userData?: UserDto;
   @Input() userAvatarUrl?: string;
   constructor(private userService: UserService, private router: Router) {
-    console.log(this.userData);
-   }
+    userService.getUserAvatar().subscribe(response => {
+      this.userAvatarUrl = response;
+    }, _ => {
+      this.userAvatarUrl = 'assets/default-avatar.svg';
+    });
+    userService.getUserById().subscribe(response => {
+      this.userData = response as UserDto;
+      console.log('user data', this.userData);
+    });
+  }
 
   applyForm = new FormGroup({
     Firstname: new FormControl(this.userData?.firstName),
@@ -32,13 +40,17 @@ export class SettingsFormComponent {
     const reader = new FileReader();
     reader.onload = (event: ProgressEvent<FileReader>) => {
       image.src = event.target!.result;
-    };
+    }
     
     reader.readAsDataURL(file);
   }
 
   onFormSubmit = () => {
-    const { Firstname, Lastname, Username, Bio, File } = this.applyForm.value;
+    var { Firstname, Lastname, Username, Bio, File } = this.applyForm.value;
+    if(File === null){
+      fetch('assets/default-avatar.jpg')
+      .then(response => File = response.blob());
+    }
     let updateUserDto: UpdateUserDto = {
       firstname: Firstname,
       lastname: Lastname,
@@ -49,7 +61,7 @@ export class SettingsFormComponent {
     this.userService.updateUser(updateUserDto).subscribe(
       response => {
         console.log(response);
-        this.router.navigateByUrl('home/settings');
+        this.router.navigateByUrl('home/account/info');
       },
       error => {
         console.error('Error:', error);
