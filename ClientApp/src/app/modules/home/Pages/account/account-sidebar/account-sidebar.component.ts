@@ -19,7 +19,7 @@ export class AccountSidebarComponent {
 
   navigateBack = () => {
     let path = this.router.url.split('/');
-    if (path.includes('info')) 
+    if (path.includes('info'))
       this.router.navigate(['home/account/update']);
     else if (path.includes('update')) 
       this.router.navigate(['home/account/info']);
