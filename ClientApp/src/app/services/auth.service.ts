@@ -1,30 +1,29 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { LoginDto, RegisterDto } from "../dto/auth.dto";
-import { Observable, catchError, tap } from "rxjs";
-import { Router } from "@angular/router";
-import { TokenService } from './token.service';
+import { Observable, throwError } from "rxjs";
+import { catchError, tap } from "rxjs/operators";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
-    constructor(private router: Router, private http: HttpClient, private tokenService: TokenService) { }
+    constructor(
+        private http: HttpClient
+    ) { }
 
-    login(dto: LoginDto) : Observable<string> {
+    login(dto: LoginDto) {
         return this.http.post('http://localhost:8080/Account/Login', dto, {responseType: 'text'})
             .pipe(
-                tap((response: string) => {
-                    console.log(`token received: ${response}`);
-                    this.tokenService.token = response;
-                    this.router.navigateByUrl('home');
-                }),
-                catchError((error: any) => {
-                    console.error('Error occurred:', error);
-                    throw error;
-                })
+                tap(response => console.log('response received:', response)),
+                catchError(this.handleError)
             );
     }
+
+    private handleError(error: HttpErrorResponse): Observable<never> {
+        console.error('An error occurred:', error.message); 
+        return throwError(() =>error);
+      }
 
     register(dto: RegisterDto) {
         console.log('register dto',dto);

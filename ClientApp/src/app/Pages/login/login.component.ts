@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { LoginDto } from '../../dto/auth.dto';
-import { catchError, tap } from 'rxjs';
+import { Router } from '@angular/router';
+import { TokenService } from '../../services/token.service';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +11,9 @@ import { catchError, tap } from 'rxjs';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService, private tokenService: TokenService) { }
 
+  isError: boolean = false;
   loginForm = new FormGroup({
     UserName: new FormControl(),
     Password: new FormControl()
@@ -23,7 +24,19 @@ export class LoginComponent {
       UserName: this.loginForm.controls.UserName.value,
       Password: this.loginForm.controls.Password.value
     };
-    //TODO: incorrect username/password добавить
-    this.authService.login(loginDto).subscribe();
+    this.authService.login(loginDto).subscribe({
+      next: token => {
+        console.log(`token received: ${token}`);
+        this.tokenService.token = token;
+        this.router.navigateByUrl('home');
+      },
+      error: error => {
+        console.log('error');
+        if (error.status === 401 || error.status === 404) {
+          console.log('if');
+          this.isError = true;
+        }
+      }
+    });
   }
 }

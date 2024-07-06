@@ -7,6 +7,9 @@
         <label for="Password">Password</label>
         <input name="Password" type="password" formControlName="Password">
     </div>
+    <div *ngIf="isError" class="alert alert-danger">
+        Incorrect username or password.
+    </div>
     <button class="primary" type="submit">Login</button> <br/>
     <a [routerLink]="['/register']" routerLinkActive="active-link" >Don't have account?</a>
 </form>
