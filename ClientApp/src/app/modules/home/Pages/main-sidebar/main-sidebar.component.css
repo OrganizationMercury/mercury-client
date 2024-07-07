@@ -1,0 +1,28 @@
+:host {
+	background-color: rgb(80, 80, 80);
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-areas: "header header"
+        "collections chats";
+	grid-template-columns: 60px auto;
+	grid-template-rows: 56px auto;
+}
+
+:host(.secondary-container) {
+	display: grid;
+	grid-template-areas: "header header"
+        "main main";
+	grid-template-columns: 60px auto;
+	grid-template-rows: 56px auto;
+}
+
+#collections {
+    background-color: red;
+    grid-area: collections;
+  }
+#chat-list {
+    background-color: blue;
+    grid-area: chats;
+}
+
