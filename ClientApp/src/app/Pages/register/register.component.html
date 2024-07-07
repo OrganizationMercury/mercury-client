@@ -51,6 +51,9 @@
             </div>
         </div>
     </div>
+    <div *ngIf="alreadyExists" class="alert alert-danger">
+        User with this username already exists.
+    </div>
     <button class="primary" type="submit">Login</button> <br/>
     <a [routerLink]="['/login']" routerLinkActive="active-link" >Already have account?</a>
 </form>
