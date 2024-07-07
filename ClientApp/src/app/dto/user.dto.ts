@@ -1,5 +1,4 @@
 export interface UpdateUserDto {
-    id: string;
     firstname?: string | null;
     lastname?: string | null;
     username?: string | null;
@@ -9,9 +8,9 @@ export interface UpdateUserDto {
 
 export interface UserDto {
   id: string
-  firstname: string
-  lastname: string
-  username: string
+  firstName: string
+  lastName: string
+  userName: string
   bio: string | null
   avatar: object
   avatarFilename: string | null

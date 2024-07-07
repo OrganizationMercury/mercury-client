@@ -26,6 +26,8 @@ services:
       POSTGRES_CONNECTION_STRING: Host=postgres;Port=5432;Database=$POSTGRES_DB;Password=$POSTGRES_PASSWORD;User Id=$POSTGRES_USER
       MINIO_ROOT_USER: $MINIO_ROOT_USER
       MINIO_ROOT_PASSWORD: $MINIO_ROOT_PASSWORD
+      JWT_ISSUER: $JWT_ISSUER
+      JWT_KEY: $JWT_KEY
 
   minio:
     container_name: front-minio
