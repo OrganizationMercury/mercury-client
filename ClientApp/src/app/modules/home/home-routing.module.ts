@@ -6,6 +6,7 @@ import { AccountInfoSidebarComponent } from "./Pages/account/account-info-sideba
 import { FriendsSidebarComponent } from "./Pages/friends-sidebar/friends-sidebar.component";
 import { UpdateAccountComponent } from "./Pages/account/update-account/update-account.component";
 import { AccountSidebarComponent } from "./Pages/account/account-sidebar/account-sidebar.component";
+import { ChatComponent } from "./Components/chat/chat.component";
 
 const routes: Routes = [
   {
@@ -14,29 +15,41 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: MainSidebarComponent
+        component: MainSidebarComponent,
+        outlet: 'sidebar'
       },
       {
         path: 'account',
-        component: AccountSidebarComponent,
         children: [
           {
+            path: '',
+            component: AccountSidebarComponent,
+            outlet: 'sidebar'
+          },
+          {
             path: 'info',
-            component: AccountInfoSidebarComponent
+            component: AccountInfoSidebarComponent,
+            outlet: 'sidebar'
           },
           {
             path: 'update',
-            component: UpdateAccountComponent
+            component: UpdateAccountComponent,
+            outlet: 'sidebar'
           }
         ]
       },
       {
         path: 'friends',
-        component: FriendsSidebarComponent
+        component: FriendsSidebarComponent,
+        outlet: 'sidebar'
+      },
+      {
+        path: 'chat',
+        component: ChatComponent
       }
     ]
   }
-  ];
+];
   
   @NgModule({
     imports: [RouterModule.forChild(routes)],
