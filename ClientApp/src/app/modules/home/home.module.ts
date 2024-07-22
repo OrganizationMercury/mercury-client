@@ -14,6 +14,7 @@ import { SearchBarComponent } from "./Components/search-bar/search-bar.component
 import { SidebarHeaderComponent } from "./Components/sidebar-header/sidebar-header.component";
 import { UpdateAccountComponent } from "./Pages/account/update-account/update-account.component";
 import { AccountSidebarComponent } from './Pages/account/account-sidebar/account-sidebar.component';
+import { RecommendationsSidebarComponent } from "./Pages/recommendations-sidebar/recommendations-sidebar.component";
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import { AccountSidebarComponent } from './Pages/account/account-sidebar/account
         SearchBarComponent,
         SidebarHeaderComponent,
         UpdateAccountComponent,
-        AccountSidebarComponent
+        AccountSidebarComponent,
+        RecommendationsSidebarComponent
     ],
     imports: [
         CommonModule,
