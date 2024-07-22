@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
   styleUrl: './friends-sidebar.component.css'
 })
 export class FriendsSidebarComponent {
-  @Output() sidebarModeEvent = new EventEmitter<string>();
   headerButtonIcon = 'assets/arrow-left.svg';
 
   constructor(private router: Router) { }
