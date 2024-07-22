@@ -31,11 +31,10 @@ export class MainSidebarComponent {
   }
 
   settingsClick = () => {
-    this.router.navigate([{ outlets: { sidebar: ['account', 'info'] } }]);
+    this.router.navigateByUrl('home/account/info');
   }
   friendsClick = () => {
-    this.router.navigate([{ outlets: { sidebar: ['home','friends'] } }]);
-    //this.router.navigateByUrl('home/friends');
+    this.router.navigateByUrl('home/friends');
   }
   recommendationsClick = () => {
     this.router.navigateByUrl('home/recommendations');
