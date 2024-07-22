@@ -1,0 +1,19 @@
+<app-sidebar-header #header [buttonIcon]="headerButtonIcon" (click)="toMainSidebar($event)">
+
+</app-sidebar-header>
+
+<div class="field-container">
+    <div class="image-field" *ngIf="userAvatarUrl">
+        <img [src]="userAvatarUrl" alt="user avatar">
+        <div>
+           {{userData?.firstName}} {{userData?.lastName}}
+        </div>
+    </div>
+    <div class="info-field">
+        <p>Bio: {{userData?.bio}}</p>
+    </div>
+    <div>
+        <button #next (click)="nextUser()">next</button>
+        <button #profile>profile</button>
+    </div>
+</div>

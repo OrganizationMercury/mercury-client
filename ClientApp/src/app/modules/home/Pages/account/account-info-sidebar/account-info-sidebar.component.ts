@@ -11,17 +11,17 @@ import { Router } from '@angular/router';
   styleUrl: './account-info-sidebar.component.css'
 })
 export class AccountInfoSidebarComponent {
-  @Output() sidebarModeEvent = new EventEmitter<string>();
-
-  userData? : UserDto;
+  userData? : UserDto = undefined;
   userAvatarUrl?: string; 
-  userInterests?: InterestDto[];
+  userInterests?: InterestDto[] = undefined;
   isFormOpen = false;
 
   constructor(private userService: UserService, private router: Router) {
     userService.getUserInterests().subscribe(response => {
       this.userInterests = response as InterestDto[];
+      console.log('user interests: ', this.userInterests)
     });
+    console.log(`user interests: ${this.userInterests}`)
     userService.getUserAvatar().subscribe(response => {
       this.userAvatarUrl = response;
     }, _ => {
@@ -29,9 +29,7 @@ export class AccountInfoSidebarComponent {
     });
     userService.getUserById().subscribe(response => {
       this.userData = response as UserDto;
-      console.log('user data', this.userData);
     });
-    console.log(this.userData);
   }
 
   applyForm = new FormGroup({

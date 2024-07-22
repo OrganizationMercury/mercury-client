@@ -12,7 +12,7 @@ import { TokenService } from './token.service';
 
 export class UserService {
   constructor(private http: HttpClient, private tokenService: TokenService) { }
-  private userId = this.tokenService.decodedToken.jti;
+  private get userId() { return this.tokenService.decodedToken.jti }
 
   updateUser(dto: UpdateUserDto) {
     let data = new FormData();
@@ -26,8 +26,15 @@ export class UserService {
   };
 
   getUserAvatar() : Observable<string> {
-    console.log('decoded token:',this.tokenService.decodedToken);
+    console.log('decoded token: dddd',this.tokenService.decodedToken);
+    console.log('token: dddd',this.tokenService.token);
     return this.http.get(`http://localhost:8080/Avatars/GetByUserId?userId=${this.userId}`, {responseType: 'blob'}).pipe(
+      map(blob => URL.createObjectURL(blob))
+    );
+  }
+
+  getUserAvatarById(id: string) : Observable<string> {
+    return this.http.get(`http://localhost:8080/Avatars/GetByUserId?userId=${id}`, {responseType: 'blob'}).pipe(
       map(blob => URL.createObjectURL(blob))
     );
   }
@@ -37,12 +44,13 @@ export class UserService {
     return this.http.get(`http://localhost:8080/Users/${this.userId}`);
   }
 
-  getUserByUsername() {
-    return this.http.get(`http://localhost:8080/Users/${this.userId}`);
+  getUserInterests() {
+    console.log(`get user interests id: ${this.userId}`);
+    return this.http.get(`http://localhost:8080/Users/${this.userId}/Interests`);
   }
 
-  getUserInterests() {
-    return this.http.get(`http://localhost:8080/Users/${this.userId}/Interests`);
+  getUserInterestsById(id: string) {
+    return this.http.get(`http://localhost:8080/Users/${id}/Interests`);
   }
 
   linkUserInterest(interest: InterestDto) {

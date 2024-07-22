@@ -6,6 +6,7 @@ import { AccountInfoSidebarComponent } from "./Pages/account/account-info-sideba
 import { FriendsSidebarComponent } from "./Pages/friends-sidebar/friends-sidebar.component";
 import { UpdateAccountComponent } from "./Pages/account/update-account/update-account.component";
 import { AccountSidebarComponent } from "./Pages/account/account-sidebar/account-sidebar.component";
+import { RecommendationsSidebarComponent } from "./Pages/recommendations-sidebar/recommendations-sidebar.component";
 
 const routes: Routes = [
   {
@@ -33,10 +34,14 @@ const routes: Routes = [
       {
         path: 'friends',
         component: FriendsSidebarComponent
+      },
+      {
+        path: 'recommendations',
+        component: RecommendationsSidebarComponent
       }
     ]
   }
-  ];
+];
   
   @NgModule({
     imports: [RouterModule.forChild(routes)],

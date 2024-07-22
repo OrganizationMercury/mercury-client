@@ -17,7 +17,9 @@ export class MainSidebarComponent {
   constructor(private router: Router) {
     this.menuItems = [
       {image:'assets/friends.svg', text:' Friends ', onClick: this.friendsClick},
-      {image:'assets/settings.svg', text:' Settings ', onClick: this.settingsClick}];
+      {image:'assets/settings.svg', text:' Settings ', onClick: this.settingsClick},
+      {image:'assets/friend-recommendations.svg', text: ' Recommendations ', onClick: this.recommendationsClick}
+    ];
   }
 
   openMenu = (event: MouseEvent) => {
@@ -33,5 +35,8 @@ export class MainSidebarComponent {
   }
   friendsClick = () => {
     this.router.navigateByUrl('home/friends');
+  }
+  recommendationsClick = () => {
+    this.router.navigateByUrl('home/recommendations');
   }
 }

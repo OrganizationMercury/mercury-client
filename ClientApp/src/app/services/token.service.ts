@@ -16,7 +16,7 @@ export class TokenService {
   }
 
   get decodedToken() {
-    return jwtDecode(this.token);
+    return jwtDecode(localStorage.getItem('token') as string);
   }
 
   isTokenValid() {
