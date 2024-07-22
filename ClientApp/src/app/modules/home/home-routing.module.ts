@@ -6,7 +6,7 @@ import { AccountInfoSidebarComponent } from "./Pages/account/account-info-sideba
 import { FriendsSidebarComponent } from "./Pages/friends-sidebar/friends-sidebar.component";
 import { UpdateAccountComponent } from "./Pages/account/update-account/update-account.component";
 import { AccountSidebarComponent } from "./Pages/account/account-sidebar/account-sidebar.component";
-import { ChatComponent } from "./Components/chat/chat.component";
+import { RecommendationsSidebarComponent } from "./Pages/recommendations-sidebar/recommendations-sidebar.component";
 
 const routes: Routes = [
   {
@@ -15,37 +15,29 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: MainSidebarComponent,
-        outlet: 'sidebar'
+        component: MainSidebarComponent
       },
       {
         path: 'account',
+        component: AccountSidebarComponent,
         children: [
           {
-            path: '',
-            component: AccountSidebarComponent,
-            outlet: 'sidebar'
-          },
-          {
             path: 'info',
-            component: AccountInfoSidebarComponent,
-            outlet: 'sidebar'
+            component: AccountInfoSidebarComponent
           },
           {
             path: 'update',
-            component: UpdateAccountComponent,
-            outlet: 'sidebar'
+            component: UpdateAccountComponent
           }
         ]
       },
       {
         path: 'friends',
-        component: FriendsSidebarComponent,
-        outlet: 'sidebar'
+        component: FriendsSidebarComponent
       },
       {
-        path: 'chat',
-        component: ChatComponent
+        path: 'recommendations',
+        component: RecommendationsSidebarComponent
       }
     ]
   }
