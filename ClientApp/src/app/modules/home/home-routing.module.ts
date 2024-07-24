@@ -5,8 +5,9 @@ import { MainSidebarComponent } from "./Pages/main-sidebar/main-sidebar.componen
 import { AccountInfoSidebarComponent } from "./Pages/account/account-info-sidebar/account-info-sidebar.component";
 import { FriendsSidebarComponent } from "./Pages/friends-sidebar/friends-sidebar.component";
 import { UpdateAccountComponent } from "./Pages/account/update-account/update-account.component";
-import { AccountSidebarComponent } from "./Pages/account/account-sidebar/account-sidebar.component";
+import { AccountMainSidebarComponent } from "./Pages/account/account-main-sidebar/account-main-sidebar.component";
 import { RecommendationsSidebarComponent } from "./Pages/recommendations-sidebar/recommendations-sidebar.component";
+import { UserProfileSidebarComponent } from "./Pages/account/user-profile-sidebar/user-profile-sidebar.component";
 
 const routes: Routes = [
   {
@@ -19,7 +20,7 @@ const routes: Routes = [
       },
       {
         path: 'account',
-        component: AccountSidebarComponent,
+        component: AccountMainSidebarComponent,
         children: [
           {
             path: 'info',
@@ -28,6 +29,10 @@ const routes: Routes = [
           {
             path: 'update',
             component: UpdateAccountComponent
+          },
+          {
+            path: 'profile/:id',
+            component: UserProfileSidebarComponent
           }
         ]
       },

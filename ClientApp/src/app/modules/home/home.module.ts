@@ -13,8 +13,9 @@ import { RoundButtonComponent } from "./Components/round-button/round-button.com
 import { SearchBarComponent } from "./Components/search-bar/search-bar.component";
 import { SidebarHeaderComponent } from "./Components/sidebar-header/sidebar-header.component";
 import { UpdateAccountComponent } from "./Pages/account/update-account/update-account.component";
-import { AccountSidebarComponent } from './Pages/account/account-sidebar/account-sidebar.component';
+import { AccountMainSidebarComponent } from './Pages/account/account-main-sidebar/account-main-sidebar.component';
 import { RecommendationsSidebarComponent } from "./Pages/recommendations-sidebar/recommendations-sidebar.component";
+import { UserProfileSidebarComponent } from "./Pages/account/user-profile-sidebar/user-profile-sidebar.component";
 
 @NgModule({
     declarations: [
@@ -28,8 +29,9 @@ import { RecommendationsSidebarComponent } from "./Pages/recommendations-sidebar
         SearchBarComponent,
         SidebarHeaderComponent,
         UpdateAccountComponent,
-        AccountSidebarComponent,
-        RecommendationsSidebarComponent
+        AccountMainSidebarComponent,
+        RecommendationsSidebarComponent,
+        UserProfileSidebarComponent
     ],
     imports: [
         CommonModule,
