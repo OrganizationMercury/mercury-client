@@ -39,9 +39,14 @@ export class UserService {
     );
   }
 
-  getUserById() {
+  getUser() {
     console.log(this.userId);
     return this.http.get(`http://localhost:8080/Users/${this.userId}`);
+  }
+
+  getUserById(id: string) {
+    console.log('user id: ', id);
+    return this.http.get(`http://localhost:8080/Users/${id}`);
   }
 
   getUserInterests() {
