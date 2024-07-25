@@ -18,7 +18,7 @@ export class UpdateAccountComponent {
     }, _ => {
       this.userAvatarUrl = 'assets/default-avatar.svg';
     });
-    userService.getUserById().subscribe(response => {
+    userService.getUser().subscribe(response => {
       this.userData = response as UserDto;
       console.log('user data', this.userData);
     });

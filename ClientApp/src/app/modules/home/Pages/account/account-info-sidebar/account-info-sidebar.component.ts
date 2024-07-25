@@ -27,7 +27,7 @@ export class AccountInfoSidebarComponent {
     }, _ => {
       this.userAvatarUrl = 'assets/default-avatar.svg';
     });
-    userService.getUserById().subscribe(response => {
+    userService.getUser().subscribe(response => {
       this.userData = response as UserDto;
     });
   }
