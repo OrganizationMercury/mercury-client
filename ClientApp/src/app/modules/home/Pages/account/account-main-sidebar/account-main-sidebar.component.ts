@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-account-sidebar',
-  templateUrl: './account-sidebar.component.html',
-  styleUrl: './account-sidebar.component.css'
+  selector: 'app-account-main-sidebar',
+  templateUrl: './account-main-sidebar.component.html',
+  styleUrl: './account-main-sidebar.component.css'
 })
-export class AccountSidebarComponent {
+export class AccountMainSidebarComponent {
   headerButtonIcon = 'assets/arrow-left.svg';
 
   constructor(private router: Router) {
