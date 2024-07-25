@@ -49,4 +49,8 @@ export class RecommendationsSidebarComponent {
       this.nextUser();
     });
   }
+
+  toProfile() {
+    this.router.navigate(['home', 'account', 'profile', this.userData?.id]);
+  }
 }
