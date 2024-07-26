@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { InterestDto, UpdateUserDto } from '../dto/user.dto';
+import { InterestDto, UpdateUserDto } from '../../dto/user.dto';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { TokenService } from './token.service';

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { UpdateUserDto, UserDto } from '../../../../../dto/user.dto';
 import { FormGroup, FormControl } from '@angular/forms';
-import { UserService } from '../../../../../services/user.service';
+import { UserService } from '../../../../../services/common/user.service';
 import { Router } from '@angular/router';
 
 @Component({

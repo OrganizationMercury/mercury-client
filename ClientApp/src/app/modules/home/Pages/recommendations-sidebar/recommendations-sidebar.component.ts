@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { InterestDto, UserDto } from '../../../../dto/user.dto';
-import { UserService } from '../../../../services/user.service';
-import { RecommendationService } from '../../../../services/recommendation.service';
+import { UserService } from '../../../../services/common/user.service';
+import { RecommendationService } from '../../../../services/common/recommendation.service';
 
 @Component({
   selector: 'app-recommendations-sidebar',

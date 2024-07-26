@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { InterestDto, UserDto } from '../../../../../dto/user.dto';
-import { UserService } from '../../../../../services/user.service';
+import { UserService } from '../../../../../services/common/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({

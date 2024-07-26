@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterDto } from '../../dto/auth.dto';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/common/auth.service';
 import { hasLowercase, hasNumber, hasSpecialSymbol, hasUppercase } from '../../services/validators/auth.validator';
 
 @Component({
