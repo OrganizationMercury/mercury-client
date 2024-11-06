@@ -12,8 +12,14 @@ export interface UserDto {
   lastName: string
   userName: string
   bio: string | null
-  avatar: object
   avatarFilename: string | null
+}
+
+export interface ChatUserDto {
+  id: string
+  firstName: string
+  lastName: string
+  userName: string
 }
 
 export interface AvatarDto {
