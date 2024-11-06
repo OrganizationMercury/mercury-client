@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { InterestDto, UpdateUserDto } from '../../dto/user.dto';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { TokenService } from './token.service';
+import { ChatDto, ChatWithAvatarDto } from '../../dto/chat.dto';
+import { FileService } from './file.service';
 
 
 @Injectable({
@@ -11,7 +13,7 @@ import { TokenService } from './token.service';
 })
 
 export class UserService {
-  constructor(private http: HttpClient, private tokenService: TokenService) { }
+  constructor(private http: HttpClient, private tokenService: TokenService, private files: FileService) { }
   private get userId() { return this.tokenService.decodedToken.jti }
 
   updateUser(dto: UpdateUserDto) {
@@ -26,31 +28,26 @@ export class UserService {
   };
 
   getUserAvatar() : Observable<string> {
-    console.log('decoded token: dddd',this.tokenService.decodedToken);
-    console.log('token: dddd',this.tokenService.token);
-    return this.http.get(`http://localhost:8080/Avatars/GetByUserId?userId=${this.userId}`, {responseType: 'blob'}).pipe(
+    return this.http.get(`http://localhost:8080/Users/${this.userId}/Avatar`, {responseType: 'blob'}).pipe(
       map(blob => URL.createObjectURL(blob))
     );
   }
 
   getUserAvatarById(id: string) : Observable<string> {
-    return this.http.get(`http://localhost:8080/Avatars/GetByUserId?userId=${id}`, {responseType: 'blob'}).pipe(
+    return this.http.get(`http://localhost:8080/Users/${id}/Avatar`, {responseType: 'blob'}).pipe(
       map(blob => URL.createObjectURL(blob))
     );
   }
 
   getUser() {
-    console.log(this.userId);
     return this.http.get(`http://localhost:8080/Users/${this.userId}`);
   }
 
   getUserById(id: string) {
-    console.log('user id: ', id);
     return this.http.get(`http://localhost:8080/Users/${id}`);
   }
 
   getUserInterests() {
-    console.log(`get user interests id: ${this.userId}`);
     return this.http.get(`http://localhost:8080/Users/${this.userId}/Interests`);
   }
 
@@ -64,5 +61,26 @@ export class UserService {
 
   unlinkUserInterest(interest: InterestDto) {
     return this.http.delete(`http://localhost:8080/Users/${this.userId}/Interests?name=${interest.name}`);
+  }
+
+  getUserChatsWithAvatars(userName: string): Observable<ChatWithAvatarDto[]> {
+    return this.http.get<ChatWithAvatarDto[]>(`http://localhost:8080/Users/${userName}/Chats`).pipe(
+      tap(chats => {
+        chats.forEach(chat => {
+          if (chat.avatar != null) {
+            this.files.getFile(chat.avatar).subscribe({
+              next: (response) => chat.avatar = response,
+              error: () => chat.avatar = 'assets/default-avatar.svg' 
+            });
+          } else {
+              chat.avatar = 'assets/default-avatar.svg';
+          }
+        });
+      }),
+      catchError(error => {
+        console.error('Chat getting error:', error);
+        return of([]); 
+        })
+    );
   }
 }

@@ -1,1 +1,18 @@
-<p>chat works!</p>
+<div class="container mt-5">
+    <h1>{{userData?.firstName}} {{userData?.lastName}}</h1>
+    <input  type="text" class="mt-3 mb-3 mr-3" [(ngModel)]="text">
+    <button class="btn btn-primary" [disabled]="text.length==0" (click)="sendMessage()">Send Message</button>
+    <h4 class="mb-3">List of Messages</h4>
+  
+    <div *ngIf="hub.messages.length==0">
+      <p>You haven't send or received messages</p>
+    </div>
+    <div *ngFor="let m of hub.messages">
+      <div class="mb-2 mt-2">
+        <div><strong>From:</strong> {{m.senderUserName}}</div>
+        <div><strong>Date</strong> {{m.timestamp | date:'medium'}}</div>
+        <div><strong>Message</strong> {{m.content}}</div>
+        <hr>
+      </div>
+    </div>
+  </div>

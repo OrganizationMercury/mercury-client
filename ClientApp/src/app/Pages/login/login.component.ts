@@ -4,6 +4,7 @@ import { AuthService } from '../../services/common/auth.service';
 import { LoginDto } from '../../dto/auth.dto';
 import { Router } from '@angular/router';
 import { TokenService } from '../../services/common/token.service';
+import { SignalrService } from '../../services/common/signalr.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,12 @@ import { TokenService } from '../../services/common/token.service';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  constructor(private router: Router, private authService: AuthService, private tokenService: TokenService) { }
+  constructor(
+    private router: Router, 
+    private authService: AuthService, 
+    private tokenService: TokenService,
+    private signalRService: SignalrService  
+  ) { }
 
   isError: boolean = false;
   loginForm = new FormGroup({
@@ -26,14 +32,12 @@ export class LoginComponent {
     };
     this.authService.login(loginDto).subscribe({
       next: token => {
-        console.log(`token received: ${token}`);
         this.tokenService.token = token;
+        this.signalRService.Connect();
         this.router.navigateByUrl('home');
       },
       error: error => {
-        console.log('error');
         if (error.status === 401 || error.status === 404) {
-          console.log('if');
           this.isError = true;
         }
       }

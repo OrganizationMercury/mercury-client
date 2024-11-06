@@ -5,5 +5,11 @@
     
 </div>
 <div id="chat-list">
-    <!--В след раз надо сделать то же, что и в telegram contacts-->
+    <div *ngFor="let chat of chats">
+        <app-chat-item
+        (click)="toChatClick(chat.id)"
+        [userIcon]="chat.avatar!"
+        [fullName]="chat.name!" 
+        [message]="'not implemented'"></app-chat-item>
+    </div>
 </div>

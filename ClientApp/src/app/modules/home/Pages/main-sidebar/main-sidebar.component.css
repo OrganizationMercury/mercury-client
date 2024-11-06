@@ -21,8 +21,8 @@
     background-color: red;
     grid-area: collections;
   }
+  
 #chat-list {
     background-color: blue;
     grid-area: chats;
 }
-
