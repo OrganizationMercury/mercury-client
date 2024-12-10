@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InterestDto, UserDto } from '../../../../../dto/user.dto';
 import { UserService } from '../../../../../services/common/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { ChatDto } from '../../../../../dto/chat.dto';
   templateUrl: './user-profile-sidebar.component.html',
   styleUrl: './user-profile-sidebar.component.css'
 })
-export class UserProfileSidebarComponent {
+export class UserProfileSidebarComponent implements OnInit {
   userId?: string | null;
   userData? : UserDto = undefined;
   userAvatarUrl?: string; 
@@ -31,9 +31,7 @@ export class UserProfileSidebarComponent {
 
       userService.getUserInterestsById(this.userId!).subscribe(response => {
         this.userInterests = response as InterestDto[];
-        console.log('user interests: ', this.userInterests)
       });
-      console.log(`user interests: ${this.userInterests}`)
       userService.getUserAvatarById(this.userId!).subscribe(response => {
         this.userAvatarUrl = response;
       }, _ => {
@@ -45,6 +43,11 @@ export class UserProfileSidebarComponent {
     });
   }
 
+  ngOnInit(): void {
+    console.log('Current route:', this.route.snapshot);
+    console.log('Parent route:', this.route.parent?.snapshot);
+  }
+
   toChat() {
     var decoded = this.tokenService.decodedToken;
     var thisUserId = decoded.jti;
@@ -53,9 +56,7 @@ export class UserProfileSidebarComponent {
         this.router.navigate( [{ outlets: { primary: ['home'], main: ['chat', chat.id]} }] );
       },
       error: err => {
-        this.router.navigate( [{ outlets: { primary: ['home'], main: ['chat']} }],
-          { queryParams: { userId: this.userId }} 
-        );
+        this.router.navigate( [{ outlets: { primary: ['home'], main: ['user', this.userId, 'chat']} }]);
       }
     });
   }

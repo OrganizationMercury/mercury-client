@@ -53,7 +53,6 @@ export class AccountInfoSidebarComponent {
     const interest: InterestDto = { name: interestName };
     this.userService.unlinkUserInterest(interest).subscribe(
       response => {
-        console.log(response)
         const indexToRemove = this.userInterests!.findIndex(interestItem => interestItem.name === interest.name);
         if (indexToRemove !== -1) {
           this.userInterests!.splice(indexToRemove, 1);

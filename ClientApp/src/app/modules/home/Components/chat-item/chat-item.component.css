@@ -2,12 +2,16 @@
 	height: 72px;
 	margin: 5px 5px;
 	padding: 0px 5px;
-	background-color: rgb(80, 80, 80);
+	background-color: var(--primary-color);
 	border-radius: 20px;
 	align-items: center;
 	display: flex;
 	gap: 5px;
 	cursor: pointer;
+}
+
+:host:hover {
+	background-color: rgb(100, 100, 100);
 }
 
 .info {

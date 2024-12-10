@@ -9,6 +9,7 @@ import { AccountMainSidebarComponent } from "./Pages/account/account-main-sideba
 import { RecommendationsSidebarComponent } from "./Pages/recommendations-sidebar/recommendations-sidebar.component";
 import { UserProfileSidebarComponent } from "./Pages/account/user-profile-sidebar/user-profile-sidebar.component";
 import { ChatComponent } from "./Components/chat/chat.component";
+import { AddChatComponent } from "./Pages/add-chat/add-chat.component";
 
 const routes: Routes = [
   {
@@ -51,9 +52,13 @@ const routes: Routes = [
         outlet: 'main'
       },
       {
-        path: 'chat',
+        path: 'user/:userId/chat',
         component: ChatComponent,
         outlet: 'main'
+      },
+      {
+        path: 'chat/add',
+        component: AddChatComponent
       }
     ]
   }

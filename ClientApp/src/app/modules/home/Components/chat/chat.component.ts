@@ -6,6 +6,9 @@ import { UserService } from '../../../../services/common/user.service';
 import { TokenService } from '../../../../services/common/token.service';
 import { ChatsService } from '../../../../services/common/chats.service';
 import { ChatDto, ChatType } from '../../../../dto/chat.dto';
+import { catchError, lastValueFrom, Observable, of } from 'rxjs';
+import { FileService } from '../../../../services/common/file.service';
+import { MessageDto } from '../../../../dto/message.dto';
 
 @Component({
   selector: 'app-chat',
@@ -24,48 +27,86 @@ export class ChatComponent implements OnInit {
     private route: ActivatedRoute,
     private tokenService: TokenService,
     private chatService: ChatsService,
-    private userService: UserService
+    private userService: UserService,
+    private files: FileService
   ) { }
 
   ngOnInit()
   {
     this.route.paramMap.subscribe(params => {
       this.hub.chatId = params.get('id');
+      this.userId = params.get('userId');
+      this.hub.loadMessages();
+      this.getChatData();
     });
-    
-    this.route.queryParams.subscribe(params => {
-      this.userId = params['userId'];
-    });
-
-    this.getChatData();
-    this.hub.loadMessages();
   }
   
   sendMessage(): void {
-    this.hub.sendMessage(this.userData?.id! ,this.text).then(() => {
-      this.text = '';
-    }).catch(err => console.error('Sending message error:', err));
+    if (!this.text?.trim()) {
+        console.error('Message text is empty.');
+        return;
+    }
+
+    const sendAction = this.chat?.type === ChatType.Group
+        ? this.hub.sendGroupMessage(this.text)
+        : this.hub.sendPrivateMessage(this.userData?.id!, this.text);
+
+    sendAction
+        .then(() => this.text = '')
+        .catch(err => console.error('Error sending message:', err));
   }
 
   getChatData() {
-    if(this.hub.chatId == null) {
-      this.userService.getUserById(this.userId!).subscribe(response => {
-        if(this.chat?.type == ChatType.Private) {
-          //TODO: LOAD USER IMAGE
-        }
-        this.userData = response as UserDto;
-      });
+    if (this.hub.chatId == null) {
+      this.handleNewChat();
     } else {
-      this.chatService.getChat(this.hub.chatId).subscribe(response => {
-        if(this.chat?.type == ChatType.Private) {
-          //TODO: LOAD USER IMAGE
-        }
-        this.chat = response;
-        var thisUserId = this.tokenService.decodedToken.jti;
-        this.chatService.getInterlocutor(this.hub.chatId!, thisUserId!).subscribe(response => {
-          this.userData = response;
-        });
-      });
+      this.handleExistingChat();
     }
+  }
+
+  isOwnMessage(message: MessageDto): boolean {
+    var currentUsername = this.tokenService.decodedToken.sub
+    return message.senderUserName == currentUsername;
+  }
+
+  private handleNewChat() {
+    this.userService.getUserById(this.userId!).subscribe(async (interlocutor) => {
+      if (this.chat?.type === ChatType.Private) {
+        this.chat.avatar = interlocutor
+          ? await this.getAvatar(interlocutor.fileName)
+          : 'assets/default-avatar.svg';
+      }
+      this.userData = interlocutor ;
+    });
+  }
+
+  private handleExistingChat() {
+    this.chatService.getChat(this.hub.chatId!).subscribe(async (response) => {
+      this.chat = response;
+
+      if (this.chat?.type === ChatType.Private) {
+        const userId = this.tokenService.decodedToken.jti!;
+        const interlocutor = await lastValueFrom(
+          this.chatService.getInterlocutor(this.chat.id, userId)
+        );
+
+        this.chat.avatar = interlocutor?.fileName
+          ? await this.getAvatar(interlocutor.fileName)
+          : 'assets/default-avatar.svg';
+      }
+
+      const thisUserId = this.tokenService.decodedToken.jti!;
+      this.chatService.getInterlocutor(this.hub.chatId!, thisUserId).subscribe((response) => {
+        this.userData = response;
+      });
+    });
+  }
+
+  private getAvatar(fileName: string | null): Promise<string> {
+    if (!fileName) return Promise.resolve('assets/default-avatar.svg');
+    
+    return lastValueFrom(this.files.getFile(fileName).pipe(
+      catchError(() => of('assets/default-avatar.svg'))
+    ));
   }
 }

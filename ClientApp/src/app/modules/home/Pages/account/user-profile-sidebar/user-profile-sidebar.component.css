@@ -4,6 +4,7 @@
 	flex-direction: column;
 	margin: 0 5px;
 	gap: 5px;
+	color: white;
 }
 
 .image-field {
@@ -27,14 +28,14 @@ img {
 
 .info-field {
 	height: 50px; 
-	background-color: rgb(80, 80, 80);
+	background-color: var(--primary-color);
 	border-radius: 20px; 
 	display: flex;
 	align-content: center;
 }
 
 .info-field:hover {
-	background-color: lightgray;
+	background-color: var(--primary-color-light);
 	cursor: pointer;
 }
 
@@ -75,5 +76,5 @@ img {
 }
 
 .interest-item > button:hover {
-	background-color: lightgray;
+	background-color: var(--primary-color-light);
 }

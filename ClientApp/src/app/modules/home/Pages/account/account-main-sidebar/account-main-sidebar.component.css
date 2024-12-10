@@ -1,5 +1,5 @@
 :host {
-	background-color: rgb(80, 80, 80);
+	background-color: var(--primary-color);
 	height: 100%;
 	width: 100%;
 	display: grid;
@@ -7,4 +7,5 @@
         "main main";
 	grid-template-columns: 60px auto;
 	grid-template-rows: 56px auto;
+	color: white;
 }

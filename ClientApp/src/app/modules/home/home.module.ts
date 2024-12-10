@@ -17,6 +17,7 @@ import { AccountMainSidebarComponent } from './Pages/account/account-main-sideba
 import { RecommendationsSidebarComponent } from "./Pages/recommendations-sidebar/recommendations-sidebar.component";
 import { UserProfileSidebarComponent } from "./Pages/account/user-profile-sidebar/user-profile-sidebar.component";
 import { ChatItemComponent } from "./Components/chat-item/chat-item.component";
+import { AddChatComponent } from "./Pages/add-chat/add-chat.component";
 
 @NgModule({
     declarations: [
@@ -32,7 +33,8 @@ import { ChatItemComponent } from "./Components/chat-item/chat-item.component";
         UpdateAccountComponent,
         AccountMainSidebarComponent,
         RecommendationsSidebarComponent,
-        UserProfileSidebarComponent
+        UserProfileSidebarComponent,
+        AddChatComponent
     ],
     imports: [
         CommonModule,

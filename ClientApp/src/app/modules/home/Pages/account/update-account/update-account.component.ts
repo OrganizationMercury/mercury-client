@@ -20,7 +20,6 @@ export class UpdateAccountComponent {
     });
     userService.getUser().subscribe(response => {
       this.userData = response as UserDto;
-      console.log('user data', this.userData);
     });
   }
 
@@ -60,7 +59,6 @@ export class UpdateAccountComponent {
     };
     this.userService.updateUser(updateUserDto).subscribe(
       response => {
-        console.log(response);
         this.router.navigateByUrl('home/account/info');
       },
       error => {
