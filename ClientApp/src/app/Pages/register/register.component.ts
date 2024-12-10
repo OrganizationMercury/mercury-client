@@ -43,11 +43,10 @@ export class RegisterComponent {
 
     this.authService.register(registerDto).subscribe(
       response => {
-        console.log('Успешная регистрация');
         this.router.navigateByUrl('login');
       },
       error => {
-        console.log(error.status);
+        console.error(error.status);
         if(error.status === 409) {
           this.alreadyExists = true;
         }
