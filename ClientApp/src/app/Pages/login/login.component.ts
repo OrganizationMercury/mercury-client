@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/common/auth.service';
 import { LoginDto } from '../../dto/auth.dto';
 import { Router } from '@angular/router';
@@ -21,14 +21,18 @@ export class LoginComponent {
 
   isError: boolean = false;
   loginForm = new FormGroup({
-    UserName: new FormControl(),
-    Password: new FormControl()
+    UserName: new FormControl('', [
+      Validators.required,
+    ]),
+    Password: new FormControl('', [
+      Validators.required,
+    ]),
   });
 
   onFormSubmit() {
     var loginDto: LoginDto = {
-      UserName: this.loginForm.controls.UserName.value,
-      Password: this.loginForm.controls.Password.value
+      UserName: this.loginForm.controls.UserName.value!,
+      Password: this.loginForm.controls.Password.value!
     };
     this.authService.login(loginDto).subscribe({
       next: token => {
