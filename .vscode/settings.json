@@ -2,9 +2,5 @@
     "svg.preview.background": "editor",
     "cSpell.words": [
         "Signalr"
-    ],
-    "files.exclude": {        
-        "**/node_modules": true,                           
-        "**/.angular": true,                           
-    }
+    ]
 }
