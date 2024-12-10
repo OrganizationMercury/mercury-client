@@ -23,4 +23,15 @@ export class ChatsService {
     getInterlocutor(chatId: string, senderId: string): Observable<ChatUserDto> {
       return this.http.get<ChatUserDto>(`http://localhost:8080/Chats/Private/${chatId}/Users/${senderId}/Interlocutor`);
     }
+
+    addChat(userIds: string[], name: string, avatar: any) : Observable<ChatDto> {
+      let data = new FormData();
+      userIds.forEach(userId => {
+        data.append('userIds', userId);
+      });
+      data.append('name', name);
+      data.append('avatar', avatar);
+
+      return this.http.post<ChatDto>('http://localhost:8080/Chats', data);
+    }
 }
