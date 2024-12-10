@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { InterestDto, UpdateUserDto } from '../../dto/user.dto';
+import { InterestDto, UpdateUserDto, UserDto, UserWithAvatarDto } from '../../dto/user.dto';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { TokenService } from './token.service';
@@ -43,8 +43,8 @@ export class UserService {
     return this.http.get(`http://localhost:8080/Users/${this.userId}`);
   }
 
-  getUserById(id: string) {
-    return this.http.get(`http://localhost:8080/Users/${id}`);
+  getUserById(id: string) : Observable<UserDto> {
+    return this.http.get<UserDto>(`http://localhost:8080/Users/${id}`);
   }
 
   getUserInterests() {
@@ -63,8 +63,8 @@ export class UserService {
     return this.http.delete(`http://localhost:8080/Users/${this.userId}/Interests?name=${interest.name}`);
   }
 
-  getUserChatsWithAvatars(userName: string): Observable<ChatWithAvatarDto[]> {
-    return this.http.get<ChatWithAvatarDto[]>(`http://localhost:8080/Users/${userName}/Chats`).pipe(
+  getUserChatsWithAvatars(userId: string): Observable<ChatWithAvatarDto[]> {
+    return this.http.get<ChatWithAvatarDto[]>(`http://localhost:8080/Users/${userId}/Chats`).pipe(
       tap(chats => {
         chats.forEach(chat => {
           if (chat.avatar != null) {
@@ -74,6 +74,48 @@ export class UserService {
             });
           } else {
               chat.avatar = 'assets/default-avatar.svg';
+          }
+        });
+      }),
+      catchError(error => {
+        console.error('Chat getting error:', error);
+        return of([]); 
+        })
+    );
+  }
+
+  getUserPrivateChatsWithAvatars(): Observable<ChatWithAvatarDto[]> {
+    return this.http.get<ChatWithAvatarDto[]>(`http://localhost:8080/Users/${this.userId}/Chats/Private`).pipe(
+      tap(chats => {
+        chats.forEach(chat => {
+          if (chat.avatar != null) {
+            this.files.getFile(chat.avatar).subscribe({
+              next: (response) => chat.avatar = response,
+              error: () => chat.avatar = 'assets/default-avatar.svg' 
+            });
+          } else {
+              chat.avatar = 'assets/default-avatar.svg';
+          }
+        });
+      }),
+      catchError(error => {
+        console.error('Chat getting error:', error);
+        return of([]); 
+        })
+    );
+  }
+
+  getUserInterlocutors(): Observable<UserWithAvatarDto[]> {
+    return this.http.get<UserWithAvatarDto[]>(`http://localhost:8080/Users/${this.userId}/Interlocutors`).pipe(
+      tap(users => {
+        users.forEach(user => {
+          if (user.fileName != null) {
+            this.files.getFile(user.fileName).subscribe({
+              next: (response) => user.fileName = response,
+              error: () => user.fileName = 'assets/default-avatar.svg' 
+            });
+          } else {
+              user.fileName = 'assets/default-avatar.svg';
           }
         });
       }),
