@@ -10,13 +10,14 @@ import { ChatCommunicator } from '../../../../services/communicators/chat.commun
 @Component({
   selector: 'app-main-sidebar',
   templateUrl: './main-sidebar.component.html',
-  styleUrl: './main-sidebar.component.css',
+  styleUrl: './main-sidebar.component.css'
 })
 export class MainSidebarComponent implements OnInit {
   @ViewChild('header') header!: SidebarHeaderComponent;
   menuItems: {image:string, text:string, onClick: (event: MouseEvent) => void}[];
-  public chats: ChatWithAvatarDto[] = [];
   headerButtonIcon = 'assets/menu.svg';
+  addGroupChatIcon = 'assets/edit-white.svg';
+  public chats: ChatWithAvatarDto[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -61,8 +62,10 @@ export class MainSidebarComponent implements OnInit {
   recommendationsClick = () => {
     this.router.navigateByUrl('home/recommendations');
   }
+  addChatClick() {
+    this.router.navigateByUrl('home/chat/add');
+  }
   toChatClick(chatId: string) {
-    console.log('Chat ID clicked:', chatId);
-    this.router.navigate( [{ outlets: { main: ['chat', chatId]} }], { relativeTo: this.route } );
+    this.router.navigate( [{ outlets: { main: ['chat', chatId]} }], { relativeTo: this.route.parent } );
   }
 }
