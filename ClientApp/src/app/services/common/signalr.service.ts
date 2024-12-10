@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { MessageDto } from '../../dto/message.dto';
-import { catchError, tap } from 'rxjs';
+import { catchError, lastValueFrom, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { MessagesService } from './messages.service';
 import { ChatCommunicator } from '../communicators/chat.communicator';
 import { ChatsService } from './chats.service';
 import { FileService } from './file.service';
+import { ChatDto, ChatType } from '../../dto/chat.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -35,26 +36,17 @@ export class SignalrService {
       .withAutomaticReconnect()
       .build();
 
-    this.hubConnection.on('newMessage', (message: any) => {
-      this.messages.push(message);
+    this.hubConnection.on('newMessage', (data: { message: MessageDto, receiver: string }) => {
+      var currentUsername = this.tokenService.decodedToken.sub;
+      if(data.receiver == currentUsername)
+        this.messages.push(data.message);
     });
 
     this.hubConnection.on('chatCreated', (chatId: string) => {
       this.chatId = chatId;
+    
       this.chats.getChat(chatId).pipe(
-        tap(response => {
-          console.log('new chat id: ', chatId);
-          console.log('new chat: ', response);
-          if(response.avatar == null) {
-            response.avatar = 'assets/default-avatar.svg';
-          } else {
-            this.files.getFile(response.avatar).subscribe(filename =>
-              response.avatar = filename
-            );
-          }
-
-          this.chatCommunicator.setChat(response);
-        })
+        tap(chat => this.handleChatAvatar(chat))
       ).subscribe();
     });
 
@@ -63,13 +55,6 @@ export class SignalrService {
     });
 
     this.startConnection();
-  }
-
-  private startConnection() {
-    this.hubConnection
-      .start()
-      .then(() => console.log('Connected'))
-      .catch(err => console.error('Connection error:', err));
   }
 
   public loadMessages() {
@@ -83,7 +68,41 @@ export class SignalrService {
     ).subscribe();
   }
 
-  public sendMessage(interlocutorId: string, message: string) {
+  public sendPrivateMessage(interlocutorId: string, message: string) {
     return this.hubConnection.invoke('SendPrivate', this.chatId, interlocutorId, message);
+  }
+
+  public sendGroupMessage(message: string) {
+    return this.hubConnection.invoke('SendGroup', this.chatId, message);
+  }
+
+  public GroupChatCreated(chat: ChatDto) {
+    return this.hubConnection.invoke('GroupChatCreated', chat);
+  }
+
+  private startConnection() {
+    this.hubConnection
+      .start()
+      .catch(err => console.error('Connection error:', err));
+  }
+
+  private async handleChatAvatar(chat: ChatDto) {
+    if (chat.type === ChatType.Group) {
+      chat.avatar = await this.getChatAvatar(chat.avatar);
+    } else {
+      const userId = this.tokenService.decodedToken.jti!;
+      const interlocutor = await lastValueFrom(this.chats.getInterlocutor(this.chatId!, userId));
+      chat.avatar = await this.getChatAvatar(interlocutor!.fileName);
+    }
+    
+    this.chatCommunicator.setChat(chat);
+  }
+  
+  private async getChatAvatar(avatar: string | null): Promise<string> {
+    if (avatar == null) {
+      return 'assets/default-avatar.svg';
+    } else {
+      return lastValueFrom(this.files.getFile(avatar));
+    }
   }
 }
