@@ -1,5 +1,5 @@
 :host {
-	background-color: rgb(80, 80, 80);
+	background-color: var(--primary-color);
 	height: 100%;
 	width: 100%;
 	display: grid;
@@ -7,6 +7,7 @@
         "main main";
 	grid-template-columns: 60px auto;
 	grid-template-rows: 56px auto;
+	color: white;
 }
 
 .field-container {
@@ -38,13 +39,13 @@ img {
 
 .info-field {
 	height: 50px; 
-	background-color: rgb(80, 80, 80);
+	background-color: var(--primary-color);
 	border-radius: 20px; 
 	display: flex;
 	align-content: center;
 }
 
 .info-field:hover {
-	background-color: lightgray;
+	background-color: var(--primary-color-light);
 	cursor: pointer;
 }
