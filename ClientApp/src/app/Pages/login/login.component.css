@@ -12,10 +12,39 @@
     display: flex;
     justify-content: center;
     align-items: center; 
+    background-color: var(--primary-color-light);
 }
 
 #login-form {
-    padding: 10px;
-    border-radius: 20px;
-    background-color: var(--primary-color-light);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: var(--primary-color);
+  box-shadow: 4px 4px 10px 0.5px rgb(16, 16, 16, 0.612);
+  gap: 10px;
+}
+
+.field-input {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.field-input > label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+}
+
+.field-input > input {
+  height: 40px;
+  width: 300px;
+  border: none;
+  border-radius: 10px;
+}
+
+.field-input > input:focus {
+  border: none;
+  outline: none;
 }
