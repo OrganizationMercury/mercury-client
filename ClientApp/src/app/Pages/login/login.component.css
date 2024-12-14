@@ -1,0 +1,50 @@
+:host {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol";
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    width: 100%;
+    height: 100%;
+    flex-grow: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    background-color: var(--primary-color-light);
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: var(--primary-color);
+  box-shadow: 4px 4px 10px 0.5px rgb(16, 16, 16, 0.612);
+  gap: 10px;
+}
+
+.field-input {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.field-input > label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: white;
+}
+
+.field-input > input {
+  height: 40px;
+  width: 300px;
+  border: none;
+  border-radius: 10px;
+}
+
+.field-input > input:focus {
+  border: none;
+  outline: none;
+}

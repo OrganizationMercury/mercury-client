@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { InterestDto, UserDto } from '../../../../dto/user.dto';
-import { UserService } from '../../../../services/user.service';
-import { RecommendationService } from '../../../../services/recommendation.service';
+import { UserService } from '../../../../services/common/user.service';
+import { RecommendationService } from '../../../../services/common/recommendation.service';
 
 @Component({
   selector: 'app-recommendations-sidebar',
@@ -15,10 +15,13 @@ export class RecommendationsSidebarComponent {
   userAvatarUrl?: string; 
   userInterests?: InterestDto[];
   index = 0;
-  constructor(private router: Router, private userService: UserService, private recommendationService: RecommendationService) {
+  constructor(
+    private router: Router, 
+    private userService: UserService, 
+    private recommendationService: RecommendationService
+  ) {
     recommendationService.recommend(this.index).subscribe(response => {
       this.userData = response as UserDto;
-      console.log('user data', this.userData);
     
       userService.getUserAvatarById(this.userData?.id!).subscribe(response => {
         this.userAvatarUrl = response;
@@ -26,27 +29,29 @@ export class RecommendationsSidebarComponent {
         this.userAvatarUrl = 'assets/default-avatar.svg';
       });
     });
-    console.log(this.userData);
    }
 
-  toMainSidebar = (event: MouseEvent) => {
+  toMainSidebar = (_: MouseEvent) => {
     this.router.navigateByUrl('home');
   }
 
   nextUser() {
     this.index++;
-    this.recommendationService.recommend(this.index).subscribe(response => {
-      this.userData = response as UserDto;
-      console.log('user data', this.userData);
+    this.recommendationService.recommend(this.index).subscribe({
+      next: response => {
+        this.userData = response as UserDto;
     
-      this.userService.getUserAvatarById(this.userData?.id!).subscribe(response => {
-        this.userAvatarUrl = response;
-      }, _ => {
-        this.userAvatarUrl = 'assets/default-avatar.svg';
-      });
-    }, error => {
-      this.index = -1;
-      this.nextUser();
+        this.userService.getUserAvatarById(this.userData?.id!).subscribe({
+          next: response => {
+            this.userAvatarUrl = response;
+          }, error: _ => {
+            this.userAvatarUrl = 'assets/default-avatar.svg';
+          }
+        });
+      }, error: error => {
+        this.index = -1;
+        this.nextUser();
+      }
     });
   }
 

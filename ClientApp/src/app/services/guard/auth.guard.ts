@@ -1,5 +1,5 @@
 import {CanActivateFn, Router} from '@angular/router';
-import { TokenService } from '../token.service';
+import { TokenService } from '../common/token.service';
 import {inject} from '@angular/core';
 
 export const authGuard: CanActivateFn = () => {

@@ -10,12 +10,16 @@
     height: 100%;
     flex-grow: 0;
     display: flex;
-  }
+}
 
-  .sidebar {
-    width: 350px;
-  }
+.sidebar {
+  width: 350px;
+  display: flex;
+}
 
-  .main {
-    width: auto;
-  }
+.main {
+  flex-grow: 1;
+  display: flex;
+  overflow-y: auto;
+  background-color: var(--primary-color-dark);
+}

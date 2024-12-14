@@ -10,6 +10,6 @@
 	width: 40px;
 }
 .round-button:hover {
-	background-color: lightgray;
+	background-color: var(--primary-color-light);
 	cursor: pointer;
 }

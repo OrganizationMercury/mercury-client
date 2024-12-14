@@ -1,1 +1,23 @@
-<p>chat works!</p>
+<div class="main-header">
+  <img [src]="chat?.avatar" alt="chat avatar">
+  <h1>{{userData?.firstName}} {{userData?.lastName}}</h1>
+</div>
+
+<div class="main-content">
+  <div *ngIf="hub.messages.length==0">
+    <p>You haven't send or received messages</p>
+  </div>
+  <div class="message-list">
+    <div *ngFor="let m of hub.messages" [ngClass]="{'own': isOwnMessage(m)}" class="message">
+      {{m.content}}
+      <span class="date">{{m.timestamp | date: 'HH:mm'}}</span>
+    </div>
+  </div>
+</div>
+
+<div class="message-input">
+  <input  type="text"[(ngModel)]="text" placeholder="Message">
+  <button [disabled]="text.length==0" (click)="sendMessage()">
+    <img width="40px" height="40px" src="assets/arrow-right-gray.svg">
+  </button>
+</div>

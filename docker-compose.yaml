@@ -8,6 +8,7 @@ services:
 
   api:
     container_name: front-api
+    build: ../mercury-api
     image: ghcr.io/organizationmercury/mercury-api:develop
     restart: on-failure
     depends_on:

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RegisterDto } from '../../dto/auth.dto';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../services/common/auth.service';
 import { hasLowercase, hasNumber, hasSpecialSymbol, hasUppercase } from '../../services/validators/auth.validator';
 
 @Component({
@@ -43,11 +43,10 @@ export class RegisterComponent {
 
     this.authService.register(registerDto).subscribe(
       response => {
-        console.log('Успешная регистрация');
         this.router.navigateByUrl('login');
       },
       error => {
-        console.log(error.status);
+        console.error(error.status);
         if(error.status === 409) {
           this.alreadyExists = true;
         }

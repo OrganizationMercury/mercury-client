@@ -1,0 +1,42 @@
+<app-sidebar-header #header [buttonIcon]="headerButtonIcon" (click)="toMainSidebar($event)" [hasSearchbar]="false">
+    <div left-side style="width: 180px;">
+        <p style="font-size: 24px; font-weight: bold;">Add Member</p>
+    </div>
+</app-sidebar-header>
+
+<div id="main">
+    <form [formGroup]="addChatForm" (ngSubmit)="submitForm()">
+        <div *ngIf="isUserSelectionStage">
+            <div *ngFor="let user of users" class="user-item">
+                <label class="user-label">
+                    <img [src]="user.fileName" alt="User Icon" class="user-icon" />
+                    <span class="user-name">{{ user.fullName }}</span>
+                    <input 
+                        type="checkbox" 
+                        [value]="user.id" 
+                        (change)="onCheckboxChange($event)" 
+                        class="user-checkbox"
+                    />
+                </label>
+            </div>
+
+            <button id="add-chat-button" (click)="isUserSelectionStage = false">
+                <img [src]="submitIcon" width="30" height="30">
+            </button>
+        </div>
+
+        <div *ngIf="!isUserSelectionStage">
+            <div class="image-input">
+                <img #image (click)="fileInput.click()" [src]="chatAvatarUrl">
+                <input #fileInput type="file" style="display: none" 
+                    accept=".jpg,.jpeg" (change)="updateImageSrc($event, image)"/>
+            </div>
+
+            <input type="text" formControlName="name" id="name" placeholder="Group name">
+            
+            <button id="add-chat-button" type="submit">
+                <img [src]="submitIcon" width="30" height="30">
+            </button>
+        </div>
+    </form>
+</div>

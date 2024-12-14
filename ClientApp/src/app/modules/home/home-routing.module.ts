@@ -8,6 +8,8 @@ import { UpdateAccountComponent } from "./Pages/account/update-account/update-ac
 import { AccountMainSidebarComponent } from "./Pages/account/account-main-sidebar/account-main-sidebar.component";
 import { RecommendationsSidebarComponent } from "./Pages/recommendations-sidebar/recommendations-sidebar.component";
 import { UserProfileSidebarComponent } from "./Pages/account/user-profile-sidebar/user-profile-sidebar.component";
+import { ChatComponent } from "./Components/chat/chat.component";
+import { AddChatComponent } from "./Pages/add-chat/add-chat.component";
 
 const routes: Routes = [
   {
@@ -43,13 +45,29 @@ const routes: Routes = [
       {
         path: 'recommendations',
         component: RecommendationsSidebarComponent
+      },
+      {
+        path: 'chat/:id',
+        component: ChatComponent,
+        outlet: 'main'
+      },
+      {
+        path: 'user/:userId/chat',
+        component: ChatComponent,
+        outlet: 'main'
+      },
+      {
+        path: 'chat/add',
+        component: AddChatComponent
       }
     ]
   }
 ];
   
   @NgModule({
-    imports: [RouterModule.forChild(routes)],
+    imports: [
+      RouterModule.forChild(routes)
+    ],
     exports: [RouterModule]
   })
   export class HomeRoutingModule { }

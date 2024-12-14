@@ -1,6 +1,6 @@
 import { FormGroup, FormControl } from '@angular/forms';
 import { Component, Output, EventEmitter } from '@angular/core';
-import { UserService } from '../../../../../services/user.service';
+import { UserService } from '../../../../../services/common/user.service';
 import { UserDto, InterestDto } from '../../../../../dto/user.dto';
 import { Router } from '@angular/router';
 
@@ -19,13 +19,13 @@ export class AccountInfoSidebarComponent {
   constructor(private userService: UserService, private router: Router) {
     userService.getUserInterests().subscribe(response => {
       this.userInterests = response as InterestDto[];
-      console.log('user interests: ', this.userInterests)
     });
-    console.log(`user interests: ${this.userInterests}`)
-    userService.getUserAvatar().subscribe(response => {
-      this.userAvatarUrl = response;
-    }, _ => {
-      this.userAvatarUrl = 'assets/default-avatar.svg';
+    userService.getUserAvatar().subscribe({ 
+      next: response => {
+        this.userAvatarUrl = response;
+      }, error: _ => {
+        this.userAvatarUrl = 'assets/default-avatar.svg';
+      }
     });
     userService.getUser().subscribe(response => {
       this.userData = response as UserDto;
@@ -53,7 +53,6 @@ export class AccountInfoSidebarComponent {
     const interest: InterestDto = { name: interestName };
     this.userService.unlinkUserInterest(interest).subscribe(
       response => {
-        console.log(response)
         const indexToRemove = this.userInterests!.findIndex(interestItem => interestItem.name === interest.name);
         if (indexToRemove !== -1) {
           this.userInterests!.splice(indexToRemove, 1);

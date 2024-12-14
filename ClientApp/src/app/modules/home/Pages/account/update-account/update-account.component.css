@@ -4,6 +4,7 @@
 	flex-direction: column;
 	margin: 0 5px;
 	gap: 5px;
+	color: white;
 }
 
 #profile-form {
