@@ -31,8 +31,10 @@
                 <input #fileInput type="file" style="display: none" 
                     accept=".jpg,.jpeg" (change)="updateImageSrc($event, image)"/>
             </div>
-
-            <input type="text" formControlName="name" id="name" placeholder="Group name">
+            <div class="primary-field-input">
+                <input type="text" formControlName="name" id="name" placeholder="Group name">
+            </div>
+            
             
             <button id="add-chat-button" type="submit">
                 <img [src]="submitIcon" width="30" height="30">
