@@ -1,4 +1,5 @@
-<form id="login-form" [formGroup]="registerForm" (submit)="onFormSubmit()" method="post">
+<form id="register-form" [formGroup]="registerForm" (submit)="onFormSubmit()" method="post">
+    <h2>Register</h2>
     <div class="field-input">
         <label for="FirstName">Firstname</label>
         <input name="FirstName" type="text" formControlName="FirstName">
@@ -54,6 +55,6 @@
     <div *ngIf="alreadyExists" class="alert alert-danger">
         User with this username already exists.
     </div>
-    <button class="primary" type="submit">Login</button> <br/>
-    <a [routerLink]="['/login']" routerLinkActive="active-link" >Already have account?</a>
+    <button class="primary" type="submit">Register</button>
+    <a id="link" [routerLink]="['/login']" routerLinkActive="active-link" >Already have account?</a>
 </form>
