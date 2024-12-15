@@ -15,8 +15,8 @@
     <div class="info-field">
         <p>Bio: {{userData?.bio}}</p>
     </div>
-    <div>
-        <button #next (click)="nextUser()">next</button>
-        <button #profile (click)="toProfile()">profile</button>
+    <div class="button-block">
+        <button #next class="primary-button" (click)="nextUser()">next</button>
+        <button #profile class="primary-button" (click)="toProfile()">profile</button>
     </div>
 </div>

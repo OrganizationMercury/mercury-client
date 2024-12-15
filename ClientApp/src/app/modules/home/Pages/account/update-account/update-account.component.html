@@ -4,21 +4,21 @@
         <input #fileInput type="file" style="display: none" 
             accept=".jpg,.jpeg" (change)="updateImageSrc($event, image)"/>
     </div>
-    <div class="field-input">
+    <div class="primary-field-input">
         <label for="Firstname">First name(required)</label>
         <input name="Firstname" type="text" formControlName="Firstname" [(ngModel)]="userData!.firstName">
     </div>
-    <div class="field-input">
+    <div class="primary-field-input">
         <label for="Lastname">Last name(optional)</label>
         <input name="Lastname" type="text" formControlName="Lastname" [(ngModel)]="userData!.lastName">
     </div>
-    <div class="field-input">
+    <div class="primary-field-input">
         <label for="Bio">Bio</label>
         <textarea name="Bio" formControlName="Bio" [(ngModel)]="userData!.bio"></textarea>
     </div>
-    <div class="field-input">
+    <div class="primary-field-input">
         <label for="Username">Username</label>
         <input name="Username" type="text" formControlName="Username" [(ngModel)]="userData!.userName">
     </div>
-    <button class="primary" type="submit">submit</button>
+    <button class="primary-button" type="submit">submit</button>
 </form>

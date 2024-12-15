@@ -49,3 +49,8 @@ img {
 	background-color: var(--primary-color-light);
 	cursor: pointer;
 }
+
+.button-block {
+	display: flex;
+	gap: 10px;
+}
