@@ -53,10 +53,14 @@ export class UserProfileSidebarComponent implements OnInit {
     var thisUserId = decoded.jti;
     this.chats.getPrivateChat(thisUserId!, this.userId!).subscribe({
       next: chat => {
-        this.router.navigate( [{ outlets: { primary: ['home'], main: ['chat', chat.id]} }] );
+        this.router.navigate([
+          '/home',
+          { outlets: { primary: null, main: ['chat', chat.id]} }] );
       },
       error: err => {
-        this.router.navigate( [{ outlets: { primary: ['home'], main: ['user', this.userId, 'chat']} }]);
+        this.router.navigate([
+          '/home',
+          { outlets: { primary: null, main: ['user', this.userId, 'chat']} }]);
       }
     });
   }
