@@ -54,3 +54,8 @@ img {
 	display: flex;
 	gap: 10px;
 }
+
+#header p {
+    margin: 0; 
+	text-align: center;
+}

@@ -47,9 +47,9 @@ export class ChatComponent implements OnInit {
         return;
     }
 
-    const sendAction = this.chat?.type === ChatType.Group
-        ? this.hub.sendGroupMessage(this.text)
-        : this.hub.sendPrivateMessage(this.userData?.id!, this.text);
+    const sendAction = this.chat?.type === ChatType.Group || this.chat?.type === ChatType.Comments
+      ? this.hub.sendGroupMessage(this.text)
+      : this.hub.sendPrivateMessage(this.userData?.id!, this.text);
 
     sendAction
         .then(() => this.text = '')
@@ -67,6 +67,10 @@ export class ChatComponent implements OnInit {
   isOwnMessage(message: MessageDto): boolean {
     var currentUsername = this.tokenService.decodedToken.sub
     return message.senderUserName == currentUsername;
+  }
+
+  isComments(chat?: ChatDto) {
+    return chat?.type === ChatType.Comments;
   }
 
   private handleNewChat() {
@@ -93,19 +97,21 @@ export class ChatComponent implements OnInit {
         this.chat.avatar = interlocutor?.fileName
           ? await this.getAvatar(interlocutor.fileName)
           : 'assets/default-avatar.svg';
-      }
 
-      const thisUserId = this.tokenService.decodedToken.jti!;
-      this.chatService.getInterlocutor(this.hub.chatId!, thisUserId).subscribe((response) => {
-        this.userData = response;
-      });
+        const thisUserId = this.tokenService.decodedToken.jti!;
+        this.chatService.getInterlocutor(this.hub.chatId!, thisUserId).subscribe((response) => {
+          this.userData = response;
+        });
+      }
     });
   }
+
+  //TODO: в группах надо показывать имя того, кто отправил сообщение. надо, чтобы первым сообщением в комментариях был сам пост
 
   private getAvatar(fileName: string | null): Promise<string> {
     if (!fileName) return Promise.resolve('assets/default-avatar.svg');
     
-    return lastValueFrom(this.files.getFile(fileName).pipe(
+    return lastValueFrom(this.files.getAvatar(fileName).pipe(
       catchError(() => of('assets/default-avatar.svg'))
     ));
   }

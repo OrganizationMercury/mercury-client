@@ -10,8 +10,14 @@ import { map, Observable } from "rxjs";
 export class FileService {
   constructor(private http: HttpClient, private tokenService: TokenService) { }
 
-  getFile(filename: string) : Observable<string> {
+  getAvatar(filename: string) : Observable<string> {
     return this.http.get(`http://localhost:8080/Avatars/${filename}`, {responseType: 'blob'}).pipe(
+      map(blob => URL.createObjectURL(blob))
+    );
+  }
+
+  getFile(fileId: string) : Observable<string> {
+    return this.http.get(`http://localhost:8080/Files/${fileId}`, {responseType: 'blob'}).pipe(
       map(blob => URL.createObjectURL(blob))
     );
   }

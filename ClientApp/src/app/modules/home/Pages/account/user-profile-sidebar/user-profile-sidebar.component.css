@@ -2,7 +2,7 @@
 	grid-area: main; 
 	display: flex; 
 	flex-direction: column;
-	margin: 0 5px;
+	margin: 0 8px;
 	gap: 5px;
 	color: white;
 }
@@ -32,6 +32,10 @@ img {
 	border-radius: 20px; 
 	display: flex;
 	align-content: center;
+}
+
+.info-field p {
+    margin: 0; 
 }
 
 .info-field:hover {
@@ -77,4 +81,27 @@ img {
 
 .interest-item > button:hover {
 	background-color: var(--primary-color-light);
+}
+
+.user-content {
+	margin-top: 20px;
+}
+
+.content-type {
+	display: flex;
+	justify-content: center;
+}
+
+.post-list {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -10px;
+    justify-content: space-between;
+}
+
+.post-list > * {
+    width: calc(50% - 0.5px); 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover; 
+    margin-bottom: 0.5px; 
 }

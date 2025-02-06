@@ -2,7 +2,8 @@ import { FileDto } from "./file.dto";
 
 export enum ChatType {
     Private,
-    Group
+    Group,
+    Comments
 }
 
 export interface ChatDto {

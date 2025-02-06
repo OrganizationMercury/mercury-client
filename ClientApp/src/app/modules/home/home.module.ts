@@ -18,6 +18,7 @@ import { RecommendationsSidebarComponent } from "./Pages/recommendations-sidebar
 import { UserProfileSidebarComponent } from "./Pages/account/user-profile-sidebar/user-profile-sidebar.component";
 import { ChatItemComponent } from "./Components/chat-item/chat-item.component";
 import { AddChatComponent } from "./Pages/add-chat/add-chat.component";
+import { ImageModalComponent } from "./Components/image-modal/image-modal.component";
 
 @NgModule({
     declarations: [
@@ -37,13 +38,14 @@ import { AddChatComponent } from "./Pages/add-chat/add-chat.component";
         AddChatComponent
     ],
     imports: [
-        CommonModule,
-        HomeRoutingModule,
-        ReactiveFormsModule,
-        RouterModule,
-        FormsModule,
-        ChatItemComponent
-    ],
+    CommonModule,
+    HomeRoutingModule,
+    ReactiveFormsModule,
+    RouterModule,
+    FormsModule,
+    ChatItemComponent,
+    ImageModalComponent
+],
     providers: [
     ]
 })

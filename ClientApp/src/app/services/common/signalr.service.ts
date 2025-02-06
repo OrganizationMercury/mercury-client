@@ -102,7 +102,7 @@ export class SignalrService {
     if (avatar == null) {
       return 'assets/default-avatar.svg';
     } else {
-      return lastValueFrom(this.files.getFile(avatar));
+      return lastValueFrom(this.files.getAvatar(avatar));
     }
   }
 }

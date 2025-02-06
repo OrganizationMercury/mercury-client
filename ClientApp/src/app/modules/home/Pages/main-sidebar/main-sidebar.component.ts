@@ -44,7 +44,10 @@ export class MainSidebarComponent implements OnInit {
       this.chats.push(newChat);
     });
   }
-
+  //TODO: Не работает аватар груповых чатов
+  //TODO: Не работает отправка сообщений без перезагрузки
+  //TODO: Не работают детали чата - название и картинка
+  //TODO: Количество лайков убирается только при перезагрузке
   openMenu = (event: MouseEvent) => {
     if(this.header.mainMenu.length > 0) return;
     let menu = this.header.mainMenu.createComponent(DropdownMenuComponent);
