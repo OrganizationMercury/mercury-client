@@ -1,7 +1,14 @@
 <div class="main-header">
-  <img *ngIf="!isComments(chat)" [src]="chat?.avatar" alt="chat avatar">
-  <h1 *ngIf="isComments(chat); else noComments">Comments</h1>
-  <ng-template #noComments>
+  <img *ngIf="!isComments(chat); else comments" [src]="chat?.avatar" alt="chat avatar">
+  <ng-template #comments>
+    <img [src]="postImage" alt="post image">
+  </ng-template>
+
+  <h1 *ngIf="isComments(chat); else group">Comments</h1>
+  <ng-template #group>
+    <h1 *ngIf="isGroup(chat); else private">{{chat?.name}}</h1>
+  </ng-template>
+  <ng-template #private>
     <h1>{{userData?.firstName}} {{userData?.lastName}}</h1>
   </ng-template>
 </div>

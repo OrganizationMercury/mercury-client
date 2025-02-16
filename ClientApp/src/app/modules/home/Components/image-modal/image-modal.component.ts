@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { PostDto } from '../../../../dto/post.dt';
+import { LikeDto, PostDto } from '../../../../dto/post.dt';
 import { PostService } from '../../../../services/common/post.service';
 import { Router } from '@angular/router';
+import { TokenService } from '../../../../services/common/token.service';
 
 @Component({
   selector: 'app-image-modal',
@@ -17,17 +18,20 @@ export class ImageModalComponent implements OnChanges {
   @Input() isVisible: boolean = false; 
 
   @Output() close = new EventEmitter<void>();
-  postImage?: string;
   isLiked = false;
   likeIcon = 'assets/like.svg';
 
-  constructor(readonly postService: PostService, readonly router: Router) { }
+  constructor(
+    readonly postService: PostService, 
+    readonly router: Router,
+    readonly tokenService: TokenService
+  ) { }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['post'] && this.post) {
       this.postService.isLiked(this.post?.id!).subscribe(response => {
         this.isLiked = response;
         this.likeIcon = this.isLiked ? 'assets/like-red.svg' : 'assets/like.svg'; 
-        console.log(this.post);
       });
     }
   }
@@ -39,19 +43,28 @@ export class ImageModalComponent implements OnChanges {
   }
 
   onLike(): void {
-    const likeAction$ = this.isLiked
-        ? this.postService.unlikePost(this.post?.id!)
-        : this.postService.likePost(this.post?.id!);
+    if (!this.post) return; 
 
-    likeAction$.subscribe(_ => {
-      this.isLiked = !this.isLiked;
-      this.likeIcon = this.isLiked ? 'assets/like-red.svg' : 'assets/like.svg';
-    })
+    if (this.isLiked) {
+      this.postService.unlikePost(this.post?.id!).subscribe(likeId => {
+        this.post!.likes = this.post!.likes.filter(like => like.id !== likeId);
+        this.isLiked = false;
+        this.likeIcon = 'assets/like.svg';
+      });
+    } else {
+      this.postService.likePost(this.post?.id!).subscribe(likeId => {
+        const likeDto: LikeDto = { id: likeId, postId: this.post?.id!, userId: '' };
+        this.post?.likes.push(likeDto);
+        this.isLiked = true;
+        this.likeIcon = 'assets/like-red.svg';
+      });
+    }
   }
 
   onComment(): void {
     this.router.navigate([
       '/home',
-      { outlets: { primary: null, main: ['chat', this.post?.commentsId]} }] );
+      { outlets: { primary: null, main: ['chat', this.post?.commentsId]} }], 
+      { queryParams: { postImage: this.post?.image }} );
   }
 }

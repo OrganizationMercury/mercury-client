@@ -82,19 +82,17 @@ export class PostService {
       );
     }
 
-    //TODO: CHECK LIKES, COMMENTS, PHOTO LOADING
-
     public likePost(postId: string) {
       var userId = this.tokenService.decodedToken.jti;
       
-      return this.http.post(`http://localhost:8080/Posts/${postId}/Like`, JSON.stringify(userId), {
+      return this.http.post<string>(`http://localhost:8080/Posts/${postId}/Like`, JSON.stringify(userId), {
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
     public unlikePost(postId: string) {
       var userId = this.tokenService.decodedToken.jti;
-      return this.http.delete(`http://localhost:8080/Posts/${postId}/Like?userId=${userId}`);
+      return this.http.delete<string>(`http://localhost:8080/Posts/${postId}/Like?userId=${userId}`);
     }
 
     public isLiked(postId: string): Observable<boolean> {

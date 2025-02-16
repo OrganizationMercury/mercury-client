@@ -20,6 +20,7 @@ export class ChatComponent implements OnInit {
   text: string = "";
   chat?: ChatDto = undefined;
   userId?: string | null;
+  postImage?: string | null;
   userData?: ChatUserDto;
 
   constructor(
@@ -38,6 +39,10 @@ export class ChatComponent implements OnInit {
       this.userId = params.get('userId');
       this.hub.loadMessages();
       this.getChatData();
+    });
+
+    this.route.queryParamMap.subscribe(queryParams => {
+      this.postImage = queryParams.get('postImage'); 
     });
   }
   
@@ -73,6 +78,10 @@ export class ChatComponent implements OnInit {
     return chat?.type === ChatType.Comments;
   }
 
+  isGroup(chat?: ChatDto) {
+    return chat?.type === ChatType.Group
+  }
+
   private handleNewChat() {
     this.userService.getUserById(this.userId!).subscribe(async (interlocutor) => {
       if (this.chat?.type === ChatType.Private) {
@@ -102,11 +111,15 @@ export class ChatComponent implements OnInit {
         this.chatService.getInterlocutor(this.hub.chatId!, thisUserId).subscribe((response) => {
           this.userData = response;
         });
+      } else if(this.chat?.type === ChatType.Group) {
+        this.chat.avatar = this.chat.avatar
+          ? await this.getAvatar(this.chat.avatar)
+          : 'assets/default-avatar.svg';
       }
     });
   }
 
-  //TODO: в группах надо показывать имя того, кто отправил сообщение. надо, чтобы первым сообщением в комментариях был сам пост
+  //TODO: в группах надо показывать имя того, кто отправил сообщение, а так-же фото
 
   private getAvatar(fileName: string | null): Promise<string> {
     if (!fileName) return Promise.resolve('assets/default-avatar.svg');

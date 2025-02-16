@@ -46,8 +46,6 @@ export class AccountInfoSidebarComponent {
     });
   }
 
-  //TODO: чекнуть комменты, когда захожу к другому пользователю
-
   applyForm = new FormGroup({
     Name: new FormControl(''),
   });
