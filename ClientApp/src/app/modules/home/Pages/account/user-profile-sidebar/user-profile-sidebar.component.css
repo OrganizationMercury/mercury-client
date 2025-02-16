@@ -104,4 +104,5 @@ img {
     aspect-ratio: 1 / 1; 
     object-fit: cover; 
     margin-bottom: 0.5px; 
+	cursor: pointer;
 }

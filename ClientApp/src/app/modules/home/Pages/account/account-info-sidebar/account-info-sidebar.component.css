@@ -129,6 +129,7 @@ img {
     aspect-ratio: 1 / 1; 
     object-fit: cover; 
     margin-bottom: 0.5px; 
+	cursor: pointer;
 }
 
 #post-form {
@@ -142,6 +143,7 @@ img {
 #post-form img {
 	width: 150px;
 	height: 150px;
+	cursor: pointer;
 }
 
 #post-form:hover {

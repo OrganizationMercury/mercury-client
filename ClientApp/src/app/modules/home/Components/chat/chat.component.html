@@ -1,16 +1,18 @@
 <div class="main-header">
-  <img *ngIf="!isComments(chat); else comments" [src]="chat?.avatar" alt="chat avatar">
-  <ng-template #comments>
-    <img [src]="postImage" alt="post image">
-  </ng-template>
+  <img [src]="isComments(chat) ? postImage : chat?.avatar" 
+    [alt]="isComments(chat) ? 'post image' : 'chat avatar'"
+    (click)="isPrivate(chat) ? toProfile() : null"
+    [style.cursor]="isPrivate(chat) ? 'pointer' : 'default'">
 
-  <h1 *ngIf="isComments(chat); else group">Comments</h1>
-  <ng-template #group>
-    <h1 *ngIf="isGroup(chat); else private">{{chat?.name}}</h1>
-  </ng-template>
-  <ng-template #private>
-    <h1>{{userData?.firstName}} {{userData?.lastName}}</h1>
-  </ng-template>
+  <h1 (click)="isPrivate(chat) ? toProfile() : null"
+    [style.cursor]="isPrivate(chat) ? 'pointer' : 'default'"> 
+    <ng-container *ngIf="isComments(chat); else chatHeader">
+      Comments
+    </ng-container>
+    <ng-template #chatHeader>
+      {{ isGroup(chat) ? chat?.name : userData?.firstName + ' ' + userData?.lastName }}
+    </ng-template>
+  </h1>
 </div>
 
 <div class="main-content">

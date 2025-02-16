@@ -1,12 +1,12 @@
-import { ActivatedRoute } from '@angular/router';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
 import { SignalrService } from '../../../../services/common/signalr.service';
-import { ChatUserDto, UserDto } from '../../../../dto/user.dto';
+import { ChatUserDto } from '../../../../dto/user.dto';
 import { UserService } from '../../../../services/common/user.service';
 import { TokenService } from '../../../../services/common/token.service';
 import { ChatsService } from '../../../../services/common/chats.service';
 import { ChatDto, ChatType } from '../../../../dto/chat.dto';
-import { catchError, lastValueFrom, Observable, of } from 'rxjs';
+import { catchError, lastValueFrom, of } from 'rxjs';
 import { FileService } from '../../../../services/common/file.service';
 import { MessageDto } from '../../../../dto/message.dto';
 
@@ -26,6 +26,7 @@ export class ChatComponent implements OnInit {
   constructor(
     public hub: SignalrService,
     private route: ActivatedRoute,
+    private router: Router,
     private tokenService: TokenService,
     private chatService: ChatsService,
     private userService: UserService,
@@ -79,7 +80,15 @@ export class ChatComponent implements OnInit {
   }
 
   isGroup(chat?: ChatDto) {
-    return chat?.type === ChatType.Group
+    return chat?.type === ChatType.Group;
+  }
+
+  isPrivate(chat?: ChatDto) {
+    return chat?.type === ChatType.Private;
+  }
+
+  toProfile() {
+    this.router.navigate(['home', 'account', 'profile', this.userData?.id]);
   }
 
   private handleNewChat() {
