@@ -34,3 +34,12 @@
 img {
 	border-radius: 50%;
 }
+
+.colon {
+	padding-left: 2px;
+	padding-right: 4px;
+}
+
+.message-content {
+	color: var(--secondary-text-color);
+}

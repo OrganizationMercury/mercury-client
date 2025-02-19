@@ -2,10 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DropdownMenuComponent } from '../../Components/dropdown-menu/dropdown-menu.component';
 import { SidebarHeaderComponent } from '../../Components/sidebar-header/sidebar-header.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChatDto, ChatWithAvatarDto } from '../../../../dto/chat.dto';
+import { ChatWithAvatarDto } from '../../../../dto/chat.dto';
 import { UserService } from '../../../../services/common/user.service';
 import { TokenService } from '../../../../services/common/token.service';
 import { ChatCommunicator } from '../../../../services/communicators/chat.communicator';
+import { MessagesService } from '../../../../services/common/messages.service';
+import { MessageDto } from '../../../../dto/message.dto';
 
 @Component({
   selector: 'app-main-sidebar',
@@ -17,6 +19,7 @@ export class MainSidebarComponent implements OnInit {
   menuItems: {image:string, text:string, onClick: (event: MouseEvent) => void}[];
   headerButtonIcon = 'assets/menu.svg';
   addGroupChatIcon = 'assets/edit-white.svg';
+  lastMessages: { [chatId: string]: MessageDto } = {};
   public chats: ChatWithAvatarDto[] = [];
 
   constructor(
@@ -24,7 +27,8 @@ export class MainSidebarComponent implements OnInit {
     private router: Router, 
     private userService: UserService, 
     private tokenService: TokenService,
-    private chatCommunicator: ChatCommunicator
+    private chatCommunicator: ChatCommunicator,
+    public messages: MessagesService
   ) {
     this.menuItems = [
       {image:'assets/friends.svg', text:' Friends ', onClick: this.friendsClick},
@@ -37,17 +41,34 @@ export class MainSidebarComponent implements OnInit {
     var userId = this.tokenService.decodedToken.jti!;
     this.userService.getUserChatsWithAvatars(userId).subscribe(response => {
       this.chats = response;
+
+      this.chats.forEach(chat => {
+        console.log('chat', chat)
+        this.loadLastMessage(chat.id);
+      });
     });
 
     this.chatCommunicator.getChat$().subscribe(newChat => {
-      console.log('newChat: ', newChat);
       this.chats.push(newChat);
     });
   }
+
+  loadLastMessage(chatId: string) {
+    if (this.lastMessages[chatId]) {
+      return;
+    }
+
+    this.messages.getLastMessage(chatId).subscribe(message => {
+      this.lastMessages[chatId] = message;
+    });
+  }
+
+  getLastMessage(chatId: string): MessageDto {
+    return this.lastMessages[chatId];
+  }
+
   //TODO: Не работает отправка сообщений без перезагрузки(возможно имеется ввиду при создании нового чата)
-  //TODO: Клик на аватар приватного чата должен кидать в профиль пользователя
   //TODO: Клик на аватар пользователя в груповом или комменатириях кидает в профиль
-  //TODO: Количество лайков убирается только при перезагрузке
   openMenu = (event: MouseEvent) => {
     if(this.header.mainMenu.length > 0) return;
     let menu = this.header.mainMenu.createComponent(DropdownMenuComponent);

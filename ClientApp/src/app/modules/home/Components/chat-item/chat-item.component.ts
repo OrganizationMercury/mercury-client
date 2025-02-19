@@ -1,4 +1,6 @@
 import { Component, Input } from '@angular/core';
+import { MessageDto } from '../../../../dto/message.dto';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-chat-item',
@@ -10,5 +12,5 @@ import { Component, Input } from '@angular/core';
 export class ChatItemComponent {
   @Input() userIcon: string = "";
   @Input() fullName!: string;
-  @Input() message!: string;
+  @Input() message!: MessageDto;
 }

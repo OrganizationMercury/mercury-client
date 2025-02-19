@@ -10,7 +10,7 @@
         (click)="toChatClick(chat.id)"
         [userIcon]="chat.avatar!"
         [fullName]="chat.name!" 
-        [message]="'not implemented'"></app-chat-item>
+        [message]="getLastMessage(chat.id)"></app-chat-item>
     </div>
 </div>
 

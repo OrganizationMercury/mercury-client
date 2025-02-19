@@ -13,4 +13,8 @@ export class MessagesService {
     getMessages(chatId: string): Observable<MessageDto[]> {
       return this.http.get<MessageDto[]>(`http://localhost:8080/Messages?chatId=${chatId}`);
     }
+
+    getLastMessage(chatId: string): Observable<MessageDto> {
+      return this.http.get<MessageDto>(`http://localhost:8080/Messages?chatId=${chatId}&latest=true`);
+    }
 }

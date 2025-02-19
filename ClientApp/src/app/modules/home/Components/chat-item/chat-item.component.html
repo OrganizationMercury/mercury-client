@@ -1,5 +1,9 @@
 <img class="user-icon" [src]="userIcon" alt="user icon">
 <div class="info">
     <div class="full-name"> {{ fullName }}</div>
-    <div class="last-message"> {{ message }}</div>
+    <div class="last-message"> 
+        <span>{{ message.senderUserName }}</span>
+        <span class="colon">:</span>
+        <span class="message-content">{{ message.content }}</span>
+    </div>
 </div>
