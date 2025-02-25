@@ -1,0 +1,18 @@
+:host {
+	background-color: var(--primary-color);
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-areas: "header header"
+        "main main";
+	grid-template-columns: 60px auto;
+	grid-template-rows: 56px auto;
+	color: white;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#header p {
+    margin: 0; 
+	text-align: center;
+}

@@ -1,0 +1,63 @@
+<div class="field-container">
+    <div class="image-field" *ngIf="userAvatarUrl">
+        <img [src]="userAvatarUrl" alt="user avatar">
+        <div>
+           {{userData?.firstName}} {{userData?.lastName}}
+        </div>
+    </div>
+    <div class="info-field">
+        <p>Bio: {{userData?.bio}}</p>
+    </div>
+    <div class="info-field">
+        <p>Username: {{userData?.userName}}</p>
+    </div>
+    <div class="interests-field">
+        <div class="interests-container">
+            <div class="interest-item" *ngFor="let interest of userInterests">
+                <p>{{interest.name}}</p>
+                <button (click)="unlinkInterest(interest.name)">
+                    <img src="assets/cross.svg">
+                </button>
+            </div>
+        </div>
+        <form class="input-area" [formGroup]="applyForm" (submit)="onFormSubmit()" method="post">
+            <input name="Name" type="text" formControlName="Name" placeholder="Enter interest">
+            <button type="submit">
+                <img src="assets/plus.svg">
+            </button>
+        </form>
+    </div>
+    <div class="user-content">
+        <div class="content-type">
+            <span>Media</span>
+        </div>
+        <div class="post-list">
+            <img 
+                [src]="post.image"
+                (click)="openModal(post)"
+                (contextmenu)="onRightClick($event, post)" 
+                *ngFor="let post of postList">
+            <form id="post-form">
+                <label for="file-input">
+                    <img src="assets/plus.svg" alt="Add File">
+                </label>
+                <input id="file-input" type="file" hidden (change)="onFileSelected($event)" accept="image/*">
+            </form>
+        </div>
+    </div>
+    <app-image-modal 
+        [post]="selectedPost"
+        [isVisible]="isModalVisible"
+        (close)="closeModal()"
+    ></app-image-modal>
+    <div 
+        class="post-menu" 
+        *ngIf="isDropdownVisible" 
+        [ngStyle]="{ top: dropdownPosition.y + 'px', left: dropdownPosition.x + 'px' }"
+        (click)="deletePost(selectedPost!)">
+        <div>
+            <img src="assets/cross.svg">
+            <span>Delete</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+<div class="modal" *ngIf="isVisible" (click)="closeModal($event)">
+  <div class="modal-content" (click)="closeModal($event)">
+    <img [src]="post?.image" (click)="$event.stopPropagation()">
+    <div class="modal-reactions" (click)="$event.stopPropagation()">
+      <div>
+        <img [src]="likeIcon" (click)="onLike()">
+        <span>{{post?.likes?.length}}</span>
+      </div>
+      <div>
+        <img src="assets/comment.svg" (click)="onComment()">
+        <span></span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<form id="login-form" [formGroup]="loginForm" (submit)="onFormSubmit()" method="post">
+    <h2>Login</h2>
+    <div class="field-input">
+        <label for="UserName">Username</label>
+        <input name="UserName" type="text" formControlName="UserName">
+    </div>
+    <div class="field-input">
+        <label for="Password">Password</label>
+        <input name="Password" type="password" formControlName="Password">
+    </div>
+    <div *ngIf="isError" class="alert alert-danger">
+        Incorrect username or password.
+    </div>
+    <button type="submit">Login</button>
+    <a id="link" [routerLink]="['/register']" routerLinkActive="active-link" >Don't have account?</a>
+</form>

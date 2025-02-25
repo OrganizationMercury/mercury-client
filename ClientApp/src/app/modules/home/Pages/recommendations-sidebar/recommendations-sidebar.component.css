@@ -1,0 +1,61 @@
+:host {
+	background-color: var(--primary-color);
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-areas: "header header"
+        "main main";
+	grid-template-columns: 60px auto;
+	grid-template-rows: 56px auto;
+	color: white;
+}
+
+.field-container {
+	grid-area: main; 
+	display: flex; 
+	flex-direction: column;
+	margin: 0 5px;
+	gap: 5px;
+}
+
+.image-field {
+	height: 350px; 
+	position: relative; 
+	overflow: hidden;
+}
+
+img {
+	width: 100%; 
+	height: 100%;
+}
+
+.image-field > div {
+	position: absolute; 
+	font-size: 28px; 
+	color: white; 
+	bottom: 30px; 
+	left: 30px;
+}
+
+.info-field {
+	height: 50px; 
+	background-color: var(--primary-color);
+	border-radius: 20px; 
+	display: flex;
+	align-content: center;
+}
+
+.info-field:hover {
+	background-color: var(--primary-color-light);
+	cursor: pointer;
+}
+
+.button-block {
+	display: flex;
+	gap: 10px;
+}
+
+#header p {
+    margin: 0; 
+	text-align: center;
+}

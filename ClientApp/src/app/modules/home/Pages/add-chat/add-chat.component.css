@@ -1,0 +1,99 @@
+:host {
+	background-color: var(--primary-color);
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-areas: "header header"
+        "main main";
+	grid-template-columns: 60px auto;
+	grid-template-rows: 56px auto;
+	position: relative;
+}
+
+:host * {
+	color: var(--primary-text-color-light);
+}
+
+#main {
+	grid-area: main;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	height: 100%;
+	overflow-y: auto;
+}
+  
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	height: 100%;
+}
+  
+.user-item {
+	border-radius: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 8px 5px;
+}
+
+.user-item:hover {
+	background-color: gray;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+  
+.user-icon {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 12px; 
+}
+  
+.user-name {
+	flex-grow: 1;
+}
+  
+.user-label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}
+
+.user-checkbox {
+    margin-right: 10px;
+}
+  
+.buttons {
+	margin-top: 16px;
+	padding: 8px 16px;
+}
+
+#add-chat-button {
+	background-color: blueviolet;
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	border: none;
+	position: absolute;
+  	right: 16px;
+    bottom: 16px;
+  	z-index: 1;
+}
+
+.image-input{
+	height: 350px; 
+	overflow: hidden;
+}
+
+.image-input img {
+	height: 100%;
+	width: 100%;
+}
+
+.image-input:hover {
+	cursor: pointer;
+}

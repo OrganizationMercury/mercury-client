@@ -1,0 +1,10 @@
+:host {
+	background-color: var(--primary-color);
+	height: 100%;
+	width: 100%;
+	display: grid;
+	grid-template-areas: "header header"
+        "main main";
+	grid-template-columns: 60px auto;
+	grid-template-rows: 56px auto;
+}

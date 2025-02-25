@@ -1,0 +1,16 @@
+:root {
+	--primary-color: rgb(50, 50, 50);
+	--primary-color-dark: rgb(30, 30, 30);
+	--primary-color-light: rgb(120, 120, 120);
+
+	--primary-translucent-color: rgba(50, 50, 50, .8)
+
+	--primary-text-color-dark: black;
+	--primary-text-color-light: white;
+	--secondary-text-color: rgb(170, 170, 170);
+	--reaction-text-color: gray;
+	--primary-placeholder-color-light: rgb(120, 120, 120);
+
+	--primary-color-light-hover: rgb(140, 140, 140);
+	--primary-color-hover: rgb(70, 70, 70);
+}
