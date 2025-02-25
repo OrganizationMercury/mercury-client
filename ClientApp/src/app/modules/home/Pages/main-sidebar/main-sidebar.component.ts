@@ -43,12 +43,12 @@ export class MainSidebarComponent implements OnInit {
       this.chats = response;
 
       this.chats.forEach(chat => {
-        console.log('chat', chat)
         this.loadLastMessage(chat.id);
       });
     });
 
     this.chatCommunicator.getChat$().subscribe(newChat => {
+      this.loadLastMessage(newChat.id);
       this.chats.push(newChat);
     });
   }
@@ -67,7 +67,6 @@ export class MainSidebarComponent implements OnInit {
     return this.lastMessages[chatId];
   }
 
-  //TODO: Не работает отправка сообщений без перезагрузки(возможно имеется ввиду при создании нового чата)
   //TODO: Клик на аватар пользователя в груповом или комменатириях кидает в профиль
   openMenu = (event: MouseEvent) => {
     if(this.header.mainMenu.length > 0) return;

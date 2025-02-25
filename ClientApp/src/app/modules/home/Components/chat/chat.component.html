@@ -21,10 +21,10 @@
   </div>
   <div class="message-list">
     <div *ngFor="let m of hub.messages" [ngClass]="{'own': isOwnMessage(m)}" class="message">
-      <div *ngIf="!isOwnMessage(m)" class="sender-username">{{ m.senderUserName }}</div>
+      <div *ngIf="!isOwnMessage(m)" class="sender-username">{{ m?.senderUserName }}</div>
       <div style="display: flex;">
-        <div class="message-content">{{ m.content }}</div>
-        <span class="date">{{m.timestamp | date: 'HH:mm'}}</span>
+        <div class="message-content">{{ m?.content }}</div>
+        <span class="date">{{m?.timestamp | date: 'HH:mm'}}</span>
       </div>
     </div>
   </div>

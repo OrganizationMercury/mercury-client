@@ -12,5 +12,5 @@ import { Observable } from 'rxjs';
 export class ChatItemComponent {
   @Input() userIcon: string = "";
   @Input() fullName!: string;
-  @Input() message!: MessageDto;
+  @Input() message?: MessageDto;
 }

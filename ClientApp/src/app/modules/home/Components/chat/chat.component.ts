@@ -1,12 +1,12 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { SignalrService } from '../../../../services/common/signalr.service';
 import { ChatUserDto } from '../../../../dto/user.dto';
 import { UserService } from '../../../../services/common/user.service';
 import { TokenService } from '../../../../services/common/token.service';
 import { ChatsService } from '../../../../services/common/chats.service';
 import { ChatDto, ChatType } from '../../../../dto/chat.dto';
-import { catchError, lastValueFrom, of } from 'rxjs';
+import { catchError, lastValueFrom, of, Subject, takeUntil } from 'rxjs';
 import { FileService } from '../../../../services/common/file.service';
 import { MessageDto } from '../../../../dto/message.dto';
 
@@ -15,13 +15,14 @@ import { MessageDto } from '../../../../dto/message.dto';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent implements OnInit { 
+export class ChatComponent implements OnInit, OnDestroy { 
   title = 'chat-ui';
   text: string = "";
   chat?: ChatDto = undefined;
   userId?: string | null;
   postImage?: string | null;
   userData?: ChatUserDto;
+  private destroy$ = new Subject<void>();
 
   constructor(
     public hub: SignalrService,
@@ -35,16 +36,31 @@ export class ChatComponent implements OnInit {
 
   ngOnInit()
   {
-    this.route.paramMap.subscribe(params => {
-      this.hub.chatId = params.get('id');
-      this.userId = params.get('userId');
-      this.hub.loadMessages();
-      this.getChatData();
-    });
+    this.route.paramMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(params => {
+        this.hub.chatId = params.get('id');
+        this.userId = params.get('userId');
+        this.hub.loadMessages();
+        this.getChatData();
+      });
 
-    this.route.queryParamMap.subscribe(queryParams => {
-      this.postImage = queryParams.get('postImage'); 
-    });
+    this.hub.chatCreated$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(request => {
+        if(request.chatCreator === this.tokenService.decodedToken.jti) {
+          this.hub.chatId = request.chatId;
+          this.userId = null;
+          this.hub.loadMessages();
+          this.getChatData();
+        }
+      });
+
+    this.route.queryParamMap
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(queryParams => {
+        this.postImage = queryParams.get('postImage'); 
+      });
   }
   
   sendMessage(): void {
@@ -64,15 +80,17 @@ export class ChatComponent implements OnInit {
 
   getChatData() {
     if (this.hub.chatId == null) {
+      console.log('handle new chat')
       this.handleNewChat();
     } else {
+      console.log('handle existing chat')
       this.handleExistingChat();
     }
   }
 
   isOwnMessage(message: MessageDto): boolean {
     var currentUsername = this.tokenService.decodedToken.sub
-    return message.senderUserName == currentUsername;
+    return message?.senderUserName == currentUsername;
   }
 
   isComments(chat?: ChatDto) {
@@ -93,12 +111,16 @@ export class ChatComponent implements OnInit {
 
   private handleNewChat() {
     this.userService.getUserById(this.userId!).subscribe(async (interlocutor) => {
-      if (this.chat?.type === ChatType.Private) {
-        this.chat.avatar = interlocutor
+      this.chat = {
+        id: '', 
+        type: ChatType.Private,
+        name: null,
+        avatar: interlocutor
           ? await this.getAvatar(interlocutor.fileName)
-          : 'assets/default-avatar.svg';
-      }
-      this.userData = interlocutor ;
+          : 'assets/default-avatar.svg',
+      };
+    
+      this.userData = interlocutor;
     });
   }
 
@@ -109,7 +131,7 @@ export class ChatComponent implements OnInit {
       if (this.chat?.type === ChatType.Private) {
         const userId = this.tokenService.decodedToken.jti!;
         const interlocutor = await lastValueFrom(
-          this.chatService.getInterlocutor(this.chat.id, userId)
+          this.chatService.getInterlocutor(this.chat.id!, userId)
         );
 
         this.chat.avatar = interlocutor?.fileName
@@ -136,5 +158,10 @@ export class ChatComponent implements OnInit {
     return lastValueFrom(this.files.getAvatar(fileName).pipe(
       catchError(() => of('assets/default-avatar.svg'))
     ));
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { MessageDto } from '../../dto/message.dto';
-import { catchError, lastValueFrom, tap } from 'rxjs';
+import { catchError, lastValueFrom, Subject, tap } from 'rxjs';
 import { TokenService } from './token.service';
 import { MessagesService } from './messages.service';
 import { ChatCommunicator } from '../communicators/chat.communicator';
@@ -18,6 +18,7 @@ export class SignalrService {
   private hubConnection!: HubConnection;
   private connectionUrl = 'http://localhost:8080/signalr';
   private apiUrl = 'http://localhost:8080/Chats';
+  public chatCreated$ = new Subject<{ chatId: string, chatCreator: string }>();
 
   constructor(
     private tokenService: TokenService, 
@@ -42,10 +43,12 @@ export class SignalrService {
         this.messages.push(data.message);
     });
 
-    this.hubConnection.on('chatCreated', (chatId: string) => {
-      this.chatId = chatId;
+    this.hubConnection.on('chatCreated', (response: {chatId: string, senderUserName: string}) => {
+      this.chatCreated$.next({chatId: response.chatId, chatCreator: response.senderUserName});
+      this.chatId = response.chatId;
+      console.log('chatId: ',response.chatId)
     
-      this.chats.getChat(chatId).pipe(
+      this.chats.getChat(response.chatId).pipe(
         tap(chat => this.handleChatAvatar(chat))
       ).subscribe();
     });
@@ -94,7 +97,7 @@ export class SignalrService {
       const interlocutor = await lastValueFrom(this.chats.getInterlocutor(this.chatId!, userId));
       chat.avatar = await this.getChatAvatar(interlocutor!.fileName);
     }
-    
+    console.log('set chat')
     this.chatCommunicator.setChat(chat);
   }
   
