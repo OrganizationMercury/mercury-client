@@ -19,4 +19,20 @@
             </div>
         </div>
     </div>
+    <div class="user-content">
+        <div class="content-type">
+            <span>Media</span>
+        </div>
+        <div class="post-list">
+            <img 
+                [src]="post.image"
+                (click)="openModal(post)"
+                *ngFor="let post of postList">
+        </div>
+    </div>
+    <app-image-modal 
+        [post]="selectedPost"
+        [isVisible]="isModalVisible"
+        (close)="closeModal()"
+    ></app-image-modal>
 </div>

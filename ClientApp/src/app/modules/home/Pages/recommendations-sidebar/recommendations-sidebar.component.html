@@ -1,5 +1,10 @@
-<app-sidebar-header #header [buttonIcon]="headerButtonIcon" (click)="toMainSidebar($event)">
-
+<app-sidebar-header #header 
+    [buttonIcon]="headerButtonIcon" 
+    (click)="toMainSidebar($event)" 
+    [hasSearchbar]="false">
+    <div id="header" left-side style="width: 180px;">
+        <p style="font-size: 24px; font-weight: bold;">Recommendations</p>
+    </div>
 </app-sidebar-header>
 
 <div class="field-container">

@@ -2,7 +2,7 @@
 	grid-area: main; 
 	display: flex; 
 	flex-direction: column;
-	margin: 0 5px;
+	margin: 0 8px;
 	gap: 5px;
 	color: white;
 }

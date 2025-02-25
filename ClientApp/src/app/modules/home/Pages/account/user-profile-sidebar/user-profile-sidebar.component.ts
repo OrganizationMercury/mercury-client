@@ -6,6 +6,8 @@ import { TokenService } from '../../../../../services/common/token.service';
 import { ChatsService } from '../../../../../services/common/chats.service';
 import { firstValueFrom } from 'rxjs';
 import { ChatDto } from '../../../../../dto/chat.dto';
+import { PostDto } from '../../../../../dto/post.dt';
+import { PostService } from '../../../../../services/common/post.service';
 
 @Component({
   selector: 'app-user-profile-sidebar',
@@ -18,16 +20,25 @@ export class UserProfileSidebarComponent implements OnInit {
   userAvatarUrl?: string; 
   userInterests?: InterestDto[] = undefined;
   isFormOpen = false;
+  postList?: PostDto[] = [];
+  selectedPost: PostDto | null = null;
+  isModalVisible: boolean = false;
 
   constructor(
     private userService: UserService, 
     private router: Router, 
     private route: ActivatedRoute, 
     public tokenService: TokenService,
-    public chats: ChatsService)
+    public chats: ChatsService,
+    public postService: PostService
+  )
   {
     this.route.paramMap.subscribe(params => {
       this.userId = params.get('id');
+
+      postService.getPostsByUserId(this.userId!).subscribe(response => {
+        this.postList = response;
+      });
 
       userService.getUserInterestsById(this.userId!).subscribe(response => {
         this.userInterests = response as InterestDto[];
@@ -44,8 +55,6 @@ export class UserProfileSidebarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('Current route:', this.route.snapshot);
-    console.log('Parent route:', this.route.parent?.snapshot);
   }
 
   toChat() {
@@ -63,5 +72,15 @@ export class UserProfileSidebarComponent implements OnInit {
           { outlets: { primary: null, main: ['user', this.userId, 'chat']} }]);
       }
     });
+  }
+
+  openModal(post: PostDto): void {
+    this.selectedPost = post;
+    this.isModalVisible = true;
+  }
+
+  closeModal(): void {
+    this.isModalVisible = false;
+    this.selectedPost = null;
   }
 }

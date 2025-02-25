@@ -68,7 +68,7 @@ export class UserService {
       tap(chats => {
         chats.forEach(chat => {
           if (chat.avatar != null) {
-            this.files.getFile(chat.avatar).subscribe({
+            this.files.getAvatar(chat.avatar).subscribe({
               next: (response) => chat.avatar = response,
               error: () => chat.avatar = 'assets/default-avatar.svg' 
             });
@@ -89,7 +89,7 @@ export class UserService {
       tap(chats => {
         chats.forEach(chat => {
           if (chat.avatar != null) {
-            this.files.getFile(chat.avatar).subscribe({
+            this.files.getAvatar(chat.avatar).subscribe({
               next: (response) => chat.avatar = response,
               error: () => chat.avatar = 'assets/default-avatar.svg' 
             });
@@ -110,7 +110,7 @@ export class UserService {
       tap(users => {
         users.forEach(user => {
           if (user.fileName != null) {
-            this.files.getFile(user.fileName).subscribe({
+            this.files.getAvatar(user.fileName).subscribe({
               next: (response) => user.fileName = response,
               error: () => user.fileName = 'assets/default-avatar.svg' 
             });

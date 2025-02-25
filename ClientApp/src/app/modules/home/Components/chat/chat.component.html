@@ -1,6 +1,18 @@
 <div class="main-header">
-  <img [src]="chat?.avatar" alt="chat avatar">
-  <h1>{{userData?.firstName}} {{userData?.lastName}}</h1>
+  <img [src]="isComments(chat) ? postImage : chat?.avatar" 
+    [alt]="isComments(chat) ? 'post image' : 'chat avatar'"
+    (click)="isPrivate(chat) ? toProfile() : null"
+    [style.cursor]="isPrivate(chat) ? 'pointer' : 'default'">
+
+  <h1 (click)="isPrivate(chat) ? toProfile() : null"
+    [style.cursor]="isPrivate(chat) ? 'pointer' : 'default'"> 
+    <ng-container *ngIf="isComments(chat); else chatHeader">
+      Comments
+    </ng-container>
+    <ng-template #chatHeader>
+      {{ isGroup(chat) ? chat?.name : userData?.firstName + ' ' + userData?.lastName }}
+    </ng-template>
+  </h1>
 </div>
 
 <div class="main-content">
@@ -9,8 +21,11 @@
   </div>
   <div class="message-list">
     <div *ngFor="let m of hub.messages" [ngClass]="{'own': isOwnMessage(m)}" class="message">
-      {{m.content}}
-      <span class="date">{{m.timestamp | date: 'HH:mm'}}</span>
+      <div *ngIf="!isOwnMessage(m)" class="sender-username">{{ m?.senderUserName }}</div>
+      <div style="display: flex;">
+        <div class="message-content">{{ m?.content }}</div>
+        <span class="date">{{m?.timestamp | date: 'HH:mm'}}</span>
+      </div>
     </div>
   </div>
 </div>

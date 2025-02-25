@@ -2,7 +2,7 @@
 	grid-area: main; 
 	display: flex; 
 	flex-direction: column;
-	margin: 0 5px;
+	margin: 0 8px;
 	gap: 5px;
 	color: white;
 }
@@ -31,7 +31,11 @@ img {
 	background-color: var(--primary-color);
 	border-radius: 20px; 
 	display: flex;
-	align-content: center;
+	align-items: center;
+}
+
+.info-field p {
+    margin: 0; 
 }
 
 .info-field:hover {
@@ -102,4 +106,84 @@ img {
 
 .input-area > button:hover {
 	background-color: var(--primary-color-light);
+}
+
+.user-content {
+	margin-top: 20px;
+}
+
+.content-type {
+	display: flex;
+	justify-content: center;
+}
+
+.post-list {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -10px;
+    justify-content: space-between;
+}
+
+.post-list > * {
+    width: calc(50% - 0.5px); 
+    aspect-ratio: 1 / 1; 
+    object-fit: cover; 
+    margin-bottom: 0.5px; 
+	cursor: pointer;
+}
+
+#post-form {
+	cursor: pointer;
+	background-color: rgba(0, 0, 0, 0.05);
+	display: flex; 
+    justify-content: center; 
+    align-items: center;
+}
+
+#post-form img {
+	width: 150px;
+	height: 150px;
+	cursor: pointer;
+}
+
+#post-form:hover {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+
+.post-menu {
+	position: absolute;
+	width: 300px;
+	height: auto;
+	top: 100%;
+	padding: 5px;
+	border-radius: 20px;
+	box-shadow: 4px 4px 10px 0.5px rgb(16, 16, 16, 0.612);
+	background-color: var(--primary-translucent-color);
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+	z-index: 10;
+}
+
+.post-menu img {
+	width: 30px;
+	height: 30px;
+}
+  
+.post-menu > div {
+	height: 40px;
+	display: flex;
+	gap: 20px;
+	border-radius: 20px;
+	padding: 5px 10px;
+	transition: background-color 0.2s ease;
+	align-items: center;
+	color: rgb(240, 240, 240);
+	font-size: 20px;
+	cursor: pointer;
+}
+  
+.post-menu > div:hover {
+	background-color: rgba(0, 0, 0, .5);
 }

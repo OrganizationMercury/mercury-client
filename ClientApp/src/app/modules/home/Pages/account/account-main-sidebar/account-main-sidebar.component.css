@@ -8,4 +8,11 @@
 	grid-template-columns: 60px auto;
 	grid-template-rows: 56px auto;
 	color: white;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+#header p {
+    margin: 0; 
+	text-align: center;
 }
