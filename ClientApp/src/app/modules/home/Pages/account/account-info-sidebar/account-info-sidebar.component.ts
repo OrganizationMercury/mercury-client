@@ -55,7 +55,10 @@ export class AccountInfoSidebarComponent {
     const interest: InterestDto = { name: Name! };
     this.userService.linkUserInterest(interest).subscribe(
       _ => {
-        this.userInterests?.push(interest);
+        if (!this.userInterests?.some(i => i.name === interest.name)) {
+          this.userInterests?.push(interest);
+        }
+        
         this.applyForm.reset();
       },
       error => {
