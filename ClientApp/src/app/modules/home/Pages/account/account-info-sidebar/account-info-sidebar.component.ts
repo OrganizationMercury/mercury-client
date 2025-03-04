@@ -52,6 +52,10 @@ export class AccountInfoSidebarComponent {
 
   onFormSubmit = () => {
     const { Name } = this.applyForm.value;
+    if (!Name || Name.trim() === '') {
+      this.applyForm.reset();
+      return;
+    }
     const interest: InterestDto = { name: Name! };
     this.userService.linkUserInterest(interest).subscribe(
       _ => {
