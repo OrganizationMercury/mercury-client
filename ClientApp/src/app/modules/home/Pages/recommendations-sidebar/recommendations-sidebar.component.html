@@ -7,21 +7,28 @@
     </div>
 </app-sidebar-header>
 
-<div class="field-container">
+<div class="field-container" *ngIf="userData; else noUserData">
     <div class="image-field" *ngIf="userAvatarUrl">
         <img [src]="userAvatarUrl" alt="user avatar">
         <div>
-           {{userData?.firstName}} {{userData?.lastName}}
+           {{userData.firstName}} {{userData.lastName}}
         </div>
     </div>
     <div class="info-field">
-        <p>Username: {{userData?.userName}}</p>
+        <p>Username: {{userData.userName}}</p>
     </div>
     <div class="info-field">
-        <p>Bio: {{userData?.bio}}</p>
+        <p>Bio: {{userData.bio}}</p>
     </div>
     <div class="button-block">
         <button #next class="primary-button" (click)="nextUser()">next</button>
         <button #profile class="primary-button" (click)="toProfile()">profile</button>
     </div>
 </div>
+
+<ng-template #noUserData>
+    <div></div>
+    <span class="justify-content-center">
+        No recommended users for these interests.
+    </span>
+</ng-template>
